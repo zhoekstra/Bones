@@ -1,0 +1,64 @@
+Bones is a simple scripting language designed to allow people to represent any sort of dice rolls they want to.
+
+=== POOLS ===
+Bones is based around the idea of pools. A pool is a list of integers that have no ordering. For you mathematical types,
+It's a set that can contain multiples of each number. For those of you that don't, think of it as a "pool" of numbers with no real order.
+
+Every type of data is represented as a pool in Bones.
+
+Every time you create a pool, you put brackets around it.
+For example to create a pool of numbers from 1 to 6, you can write it like so:
+[ 1,2,3,4,5,6 ]
+Since this is such a common command, we've also created a shortcut. You can also create pools of sequential numbers like so:
+[ 1 -> 6 ]
+This creates a pool with all numbers from 1 to 6, just like above.
+
+Pools can be created using other pools. In this case the pools are "added" together.
+For example, the pool [[1,2,3] , [4,5,6]] is exactly the same as the pool [1,2,3,4,5,6]
+
+== INTEGERS ==
+An integer is simply a pool with exactly one value. Some operation require that you use an int, and will fail if given a pool with more than one value.
+
+ex:
+An int can be created by typing the int like so...
+6
+or can be literally constructed as a pool like so: 
+[6]
+both look exactly the same to Bones
+
+== DICE ==
+Dice are represented as pools too. A "die" is simply a pool with each number in the pool representing the value of one of its sides.
+For example, the classic d6 is represented as this pool:
+[ 1,2,3,4,5,6 ]
+a z3 (an esoteric die used in some RPG's for its unique quality of the average being the number of dice rolled) is represented as
+[0,1,2]
+To make things easy for you, we've included predefined variables for each of the major dietypes (d4,d6,d8,10,d12 and d20).
+
+== ROLLS ==
+A roll takes a couple of inputs and produces a pool of results that you can then use to determine the result.
+For example, to roll to hit in a classic D&D game, you would use...
+[1:d20];
+
+This rolls 1d20. If you then want to roll 2d6 for damage, you can write:
+
+[2:d6];
+
+Note that this returns the result of the roll as individual numbers ie. [3,6]. To get the total out of it and add a strength modifier to damage, you need to do the following:
+
+sum([2:d6]) + 5;
+
+This sums together 2d6, adds 5, then returns the result as a pool of one value.
+
+Rolls also have modifiers that change the rules of the roll. Each modifier takes a pool of numbers and uses those to do something to the roll.
+
+explode checks the roll for any dice that equal any of the values in the pool and "explodes" them by rolling the same die again and adding it to the original. This is used a lot in the Savage Worlds, Shadowrun, or Seventh Sea systems.
+ex: [1:d6:explode 6] rolls a d6, and explodes if it rolls a 6. [1:d10:explode [9,10]] rolls a d10 and explodes on a 9 or a 10.
+
+desplode does exactly what explode does, but instead of adding the result, it subtracts the result.
+[1:d6:explode 6 , desplode 1] rolls a d6. On a 6, it explodes. On a 1, roll another d6 and subtract it from the result.
+
+rollagain rolls another die and adds it to the pool for every die that matches its values. This is used most famously in the World of Darkness system
+[5:d10:rollagain 10] rolls 5d10 and rolls another die for every die that rolls a 10. This means your pool could have any number of dice within it.
+
+
+
