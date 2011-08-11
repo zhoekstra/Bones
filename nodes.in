@@ -1,0 +1,32 @@
+stmt elseif _i_expr*|expr _i_stmt*|body
+stmt block std::vector<_i_stmt*>*|stmts
+stmt if _i_expr*|expr _i_stmt*|body std::vector<_i_stmt*>*|elifs _i_stmt*|elses
+stmt for token*|iter _i_expr*|over _i_stmt*|body
+stmt while _i_expr*|expr _i_stmt*|body
+stmt vardecl token*|name _i_expr*|asn
+stmt constvardecl token*|name _i_expr*|asn
+expr explode _i_expr*|pool
+expr desplode _i_expr*|pool
+expr rollagain _i_expr*|pool
+expr call token*|name std::vector<_i_expr*>*|params
+expr id token*|name
+expr int token*|value
+expr union _i_expr*|l_expr _i_expr*|r_expr
+expr complement _i_expr*|l_expr _i_expr*|r_expr
+expr intersect _i_expr*|l_expr _i_expr*|r_expr
+expr plus _i_expr*|l_expr _i_expr*|r_expr
+expr minus _i_expr*|l_expr _i_expr*|r_expr
+expr mult _i_expr*|l_expr _i_expr*|r_expr
+expr div _i_expr*|l_expr _i_expr*|r_expr
+expr mod _i_expr*|l_expr _i_expr*|r_expr
+expr gt _i_expr*|l_expr _i_expr*|r_expr
+expr eqgt _i_expr*|l_expr _i_expr*|r_expr
+expr lt _i_expr*|l_expr _i_expr*|r_expr
+expr eqlt _i_expr*|l_expr _i_expr*|r_expr
+expr eq _i_expr*|l_expr _i_expr*|r_expr
+expr neq _i_expr*|l_expr _i_expr*|r_expr
+expr not _i_expr*|expr
+expr to _i_expr*|l_expr _i_expr*|r_expr
+expr roll _i_expr*|num _i_expr*|dice std::vector<_i_expr*>*|rollmods
+expr pool std::vector<_i_expr*>*|body
+none funcdecl token*|name std::vector<token*>*|params std::vector<_i_stmt*>*|body _i_expr*|ret
