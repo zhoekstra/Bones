@@ -5,6 +5,8 @@
 
   int yyline = 0;
   int yyposs = 0;
+  
+  extern bool quiet;
 
 #ifdef DEBUG
 #define yyposs_inc yyposs += strlen(yytext); std::cout << yytext;
@@ -77,7 +79,6 @@ c_com "//".*$
 {c_com}     { yyposs_inc; }
 {ws}        { yyposs_inc; }
 {eol}       {
-  std::cout << "... " << std::flush;
 #ifdef DEBUG
   std::cout << std::endl;
 #endif 

@@ -29,4 +29,5 @@ expr not _i_expr*|expr
 expr to _i_expr*|l_expr _i_expr*|r_expr
 expr roll _i_expr*|num _i_expr*|dice std::vector<_i_expr*>*|rollmods
 expr pool std::vector<_i_expr*>*|body
-none funcdecl token*|name std::vector<token*>*|params std::vector<_i_stmt*>*|body _i_expr*|ret
+none param token*|name
+none funcdecl token*|name std::vector<param_b*>*|params std::vector<_i_stmt*>*|body _i_expr*|ret

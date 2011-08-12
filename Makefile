@@ -10,13 +10,15 @@ LEX     = flex
 CXX     = g++
 CFLAGS  = -g -Wall -O2 -std=c++0x -lboost_program_options
 INCPATH = -I.
-EXE     = dice
+EXE     = Bones
 
 OBJS = node.o            \
        visitor.o         \
        parser.o          \
        lexer.o           \
        basic_visitor.o   \
+       symtable.o        \
+       scope.o           \
 
 HEAD = Makefile          \
        basic_visitor.hpp \

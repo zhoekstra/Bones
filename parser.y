@@ -9,6 +9,7 @@ extern int yylex();
 extern _i_stmt*    stmt;
 extern funcdecl_b* func;
 extern bool        closing;
+extern bool        quiet;
 
 void yyerror(const char* msg) {
   std::cout << msg << std::endl;
@@ -21,9 +22,10 @@ void yyerror(const char* msg) {
   _i_expr*            expr_t;
   _i_stmt*            stmt_t;
   funcdecl_b*         func_t;
+  param_b*            param_t;
   __node*             default_t;
   
-  std::vector<token*>*   tokenlist_t;
+  std::vector<param_b*>* paramlist_t;
   std::vector<_i_expr*>* exprlist_t;
   std::vector<_i_stmt*>* stmtlist_t;
 }
@@ -40,7 +42,9 @@ void yyerror(const char* msg) {
 %type <stmt_t>      script
 %type <func_t>      funcdecl
 %type <expr_t>      callexpr
-%type <tokenlist_t> IDlist
+
+%type <param_t>     param
+%type <paramlist_t> paramlist
 
 %type <expr_t>      expr
 %type <exprlist_t>  exprlist
@@ -72,9 +76,13 @@ void yyerror(const char* msg) {
 
 %expect 3
 
-%start script
+%start base
 
 %% /* Grammar rules and actions */
+
+base:
+    script
+;
 
 script:
     stmt
@@ -138,9 +146,9 @@ rollmod:
 ;
 
 funcdecl:
-    FUNC ID LPAR IDlist RPAR LCUR stmtlist RETURN expr SEMI RCUR
+    FUNC ID LPAR paramlist RPAR LCUR stmtlist RETURN expr SEMI RCUR
     { $$ = new funcdecl_b($2, $4, $7, $9); }
-  | FUNC ID LPAR        RPAR LCUR stmtlist RETURN expr SEMI RCUR
+  | FUNC ID LPAR           RPAR LCUR stmtlist RETURN expr SEMI RCUR
     { $$ = new funcdecl_b($2, NULL, $6, $8); }
 ;
 
@@ -151,11 +159,16 @@ callexpr:
     { $$ = new call_e($1, NULL); }
 ;
 
-IDlist:
-    IDlist COMMA ID
+paramlist:
+    paramlist COMMA param
     { $1->push_back($3); $$ = $1; }
-  | ID
-    { $$ = new std::vector<token*>(1, $1); }
+  | param
+    { $$ = new std::vector<param_b*>(1, $1); }
+;
+
+param:
+    ID
+    { $$ = new param_b($1); }
 ;
 
 exprlist:
