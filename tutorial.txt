@@ -2,7 +2,8 @@ Bones is a simple scripting language designed to allow people to represent any s
 
 === POOLS ===
 Bones is based around the idea of pools. A pool is a list of integers that have no ordering. For you mathematical types,
-It's a set that can contain multiples of each number. For those of you that don't, think of it as a "pool" of numbers with no real order.
+It's a set that can contain multiples of each number. For those of you that don't, think of it as a "pool" of numbers
+with no real order.
 
 Every type of data is represented as a pool in Bones.
 
