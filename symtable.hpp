@@ -16,11 +16,7 @@
 #include <map>
 #include <string>
 #include <vector>
-
-/* TODO, this needs to be replaced with the actual pool class */
-class pool {
-
-};
+#include <pool.hpp>
 
 inline std::ostream& operator<<(std::ostream& ostr, const pool& p) {
   return (ostr << "[not implemented]");

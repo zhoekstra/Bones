@@ -30,6 +30,7 @@ void yyerror(const char* msg) {
   std::vector<_i_stmt*>* stmtlist_t;
 }
 
+%token            F_GT F_LT F_GE F_LE F_EQ F_NEQ F_HIGHEST F_LOWEST F_PICK F_INPUT F_SIZEOF 
 %token            LPAR RPAR LCUR RCUR LBRA RBRA COMMA SEMI COLO
 %token            IF ELSE WHILE IN FOR VAR CONSTVAR FUNC RETURN
 %token            ASN EQ NEQ GT LT EQGT EQLT TO BANG
@@ -154,9 +155,37 @@ funcdecl:
 
 callexpr:
     ID LPAR exprlist RPAR
-    { $$ = new call_e($1, $3); }
+    { $$ = new call_e($1, $3);   }
   | ID LPAR          RPAR
     { $$ = new call_e($1, NULL); }
+  | F_GT LPAR expr COMMA expr RPAR
+    { $$ = new func_gt_e($3, $5);}
+  | F_GE LPAR expr COMMA expr RPAR
+    { $$ = new func_ge_e($3, $5);}
+  | F_LT LPAR expr COMMA expr RPAR
+    { $$ = new func_lt_e($3, $5);}
+  | F_LE LPAR expr COMMA expr RPAR
+    { $$ = new func_le_e($3, $5);}
+  | F_EQ LPAR expr COMMA expr RPAR
+    { $$ = new func_eq_e($3, $5);}
+  | F_NEQ LPAR expr COMMA expr RPAR
+    { $$ = new func_neq_e($3, $5);}
+  | F_HIGHEST LPAR expr  RPAR
+    { $$ = new func_highest_e($3, NULL);}
+  | F_HIGHEST LPAR expr COMMA expr RPAR
+    { $$ = new func_highest_e($3, $5);}
+  | F_LOWEST LPAR expr RPAR
+    { $$ = new func_lowest_e($3, NULL);}
+  | F_LOWEST LPAR expr COMMA expr RPAR
+    { $$ = new func_lowest_e($3, $5);}
+  | F_PICK LPAR expr RPAR
+    { $$ = new func_pick_e($3, NULL);}
+  | F_PICK LPAR expr COMMA expr RPAR
+    { $$ = new func_pick_e($3, $5);}
+  | F_INPUT LPAR RPAR
+    { $$ = new func_input_e(NULL);}
+  | F_SIZEOF LPAR expr RPAR
+    { $$ = new func_sizeof_e($3);}     
 ;
 
 paramlist:
@@ -220,6 +249,8 @@ expr:
     { $$ = new neq_e($1, $3); }
   | BANG expr
     { $$ = new not_e($2); }
+  | MINUS expr
+    { $$ = new negative_e($2); }
     
   | LBRA expr TO expr RBRA
     { $$ = new to_e($2, $4); }

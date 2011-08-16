@@ -19,6 +19,7 @@ OBJS = node.o            \
        basic_visitor.o   \
        symtable.o        \
        scope.o           \
+       pool.o            \
 
 HEAD = Makefile          \
        basic_visitor.hpp \

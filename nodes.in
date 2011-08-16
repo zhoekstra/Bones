@@ -26,6 +26,18 @@ expr eqlt _i_expr*|l_expr _i_expr*|r_expr
 expr eq _i_expr*|l_expr _i_expr*|r_expr
 expr neq _i_expr*|l_expr _i_expr*|r_expr
 expr not _i_expr*|expr
+expr negative _i_expr*|expr
+expr func_gt _i_expr*|pool_expr _i_expr*|val_expr
+expr func_ge _i_expr*|pool_expr _i_expr*|val_expr
+expr func_lt _i_expr*|pool_expr _i_expr*|val_expr
+expr func_le _i_expr*|pool_expr _i_expr*|val_expr
+expr func_eq _i_expr*|pool_expr _i_expr*|val_expr
+expr func_neq _i_expr*|pool_expr _i_expr*|val_expr
+expr func_highest _i_expr*|pool_expr _i_expr*|val_expr
+expr func_lowest _i_expr*|pool_expr _i_expr*|val_expr
+expr func_pick _i_expr*|pool_expr _i_expr*|val_expr
+expr func_input _i_expr*|pool_expr
+expr func_sizeof _i_expr*|pool_expr
 expr to _i_expr*|l_expr _i_expr*|r_expr
 expr roll _i_expr*|num _i_expr*|dice std::vector<_i_expr*>*|rollmods
 expr pool std::vector<_i_expr*>*|body

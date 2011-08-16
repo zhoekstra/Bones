@@ -45,6 +45,17 @@ c_com "//".*$
 "explode"    { yyposs_inc; return EXPLODE;    }
 "desplode"   { yyposs_inc; return DESPLODE;   }
 "rollagain"  { yyposs_inc; return ROLLAGAIN;  }
+"gt"         { yyposs_inc; return F_GT;       }
+"ge"         { yyposs_inc; return F_GE;       }
+"lt"         { yyposs_inc; return F_LT;       }
+"le"         { yyposs_inc; return F_LE;       }
+"eq"         { yyposs_inc; return F_EQ;       }
+"neq"        { yyposs_inc; return F_NEQ;      }
+"highest"    { yyposs_inc; return F_HIGHEST;  }
+"lowest"     { yyposs_inc; return F_LOWEST;   }
+"pick"       { yyposs_inc; return F_PICK;     }
+"input"      { yyposs_inc; return F_INPUT;    }
+"sizeof"     { yyposs_inc; return F_SIZEOF;   }
 
 "="  { yyposs_inc; return ASN;   }
 "==" { yyposs_inc; return EQ;    }
