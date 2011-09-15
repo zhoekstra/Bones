@@ -20,7 +20,7 @@ func nWoD(numdice, rollagain_on, verbose){
 }
 // real World of Darkness (so sayeth the haters)
 func oWoD(numdice, success_on, verbose){
-	return WoD(numdice, success_on, 11, 1, false, verbose);
+	return WoD(numdice, success_on, 11, 0, false, verbose);
 }
 
 print "Number of Successes Rolled on 6 dice: ", nWoD(6,10,false);
