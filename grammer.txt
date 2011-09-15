@@ -21,7 +21,14 @@ stmt:
 	"while" "(" expr ")" stmt                       
 	"var" ID "=" expr ";"
 	"constvar" ID "=" expr ";"
+	"print" printlist ";"
 	"return" expr ";"
+
+printlist:
+	expr
+	"\"" * "\""
+	expr "," printlist
+	"\"" * "\"" "," printlist
 	
 rollmodlist:
 	rollmod "," rollmodlist
@@ -106,5 +113,6 @@ predeffunc:=
 	constvar d8 = [ 1 -> 8 ];
 	constvar d10 = [ 1 -> 10 ];
 	constvar d12 = [ 1 -> 12 ];
+	constvar d20 = [ 1 -> 20 ];
 	
 	
