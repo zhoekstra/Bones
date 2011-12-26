@@ -1,0 +1,224 @@
+%class "BonesParser";
+
+%import "nodes.*";
+
+%terminals            F_GT, F_LT, F_GE, F_LE, F_EQ, F_NEQ, F_HIGHEST, F_LOWEST, F_PICK, F_INPUT, F_SIZEOF;
+%terminals            LPAR, RPAR, LCUR, RCUR, LBRA, RBRA, COMMA, SEMI, COLO;
+%terminals            IF, ELSEIF, ELSE, WHILE, IN, FOR, PRINT, VAR, CONSTVAR, FUNC, RETURN;
+%terminals            ASN, EQ, NEQ, GT, LT, EQGT, EQLT, TO, BANG;
+%terminals            PLUS, MINUS, MULT, DIV, MOD;
+%terminals            UNION, COMPLEMENT, INTERSECT;
+%terminals            EXPLODE, DESPLODE, ROLLAGAIN;
+%terminals            D4, D6, D8, D10, D12, D20;
+%terminals            INTLIT, ID, STRING;
+
+
+%right  ASN;
+%left   UNION;
+%left   INTERSECT;
+%right  COMPLEMENT;
+%left   NEQ;
+%left   EQ;
+%left   GT, EQGT;
+%left   LT, EQLT;
+%left   PLUS, MINUS;
+%left   MULT, DIV, MOD;
+%right  BANG;
+%left   LPAR, RPAR;
+%left   LBRA, RBRA;
+
+%goal program;
+
+program =
+	script*.s
+	{return s;}
+;
+
+script =
+    stmt.s
+    {: return s; :}
+  | funcdecl.f
+    {: return f; :}
+;
+
+elseif = 
+    ELSE IF LPAR expr.e RPAR stmt.block
+    {: return new flowcontrol.ElseIf(e,block); :}
+;
+
+stmt = 
+    LCUR stmt.block* RCUR
+    {: return new flowcontrol.Block(block); :}
+  | IF LPAR expr.ife RPAR stmt.ifblock elseif*.elseiflist else.elseblock?
+    {: return new flowcontrol.If(ife,ifblock,elseiflist,elseblock); :}
+  | FOR LPAR ID.id IN expr.e RPAR stmt.block
+    {: return new flowcontrol.For(id,e,block); :}
+  | WHILE LPAR expr.e RPAR stmt.block
+    {: return new flowcontrol.While(e,block); :}
+  | PRINT printlist.lst SEMI
+    {: return new Print(lst); :}
+  | VAR ID.id ASN expr.e SEMI
+    {: return new flowcontrol.VarDecl(id,e); :}
+  | CONSTVAR ID.id ASN expr.e SEMI
+    {: return new flowcontrol.ConstVarDecl(id,e); :}
+  | ID.id ASN expr.e SEMI
+    {: return new flowcontrol.VarAssign(id,e); :}
+;
+
+printlist =
+	STRING.str
+	{: Arraylist<Object> lst = new ArrayList<Object>(); lst.add(str); return lst; :}
+  | expr.e
+    {: Arraylist<Object> lst = new ArrayList<Object>(); lst.add(e); return lst; :}
+  | printlist.lst COMMA STRING.str
+    {: lst.add(str); return lst; :}
+  | printlist.lst COMMA expr.e
+    {: lst.add(e); return lst; :}
+;
+
+else =
+	ELSE stmt.elseblock
+	{: return new flowcontrol.Else(elseblock); :}
+;
+
+rollmodlist = 
+    rollmodlist.lst COMMA rollmod.r
+    {: lst.add(r); return lst; :}
+  | rollmod.r
+    {: ArrayList<dice.Rollmod> lst = new ArrayList<dice.Rollmod>; lst.add(r); return lst; :}
+;
+
+rollmod = 
+    EXPLODE expr.e
+    {: return new dice.Rollmod_Explode(e); :}
+  | DESPLODE expr.e
+    {: return new dice.Rollmod_Desplode(e); :}
+  | ROLLAGAIN expr.e
+    {: return new dice.Rollmod_Rollagain(e); :}
+;
+
+funcdecl = 
+    FUNC ID LPAR paramlist.lst? RPAR LCUR stmt.block* RETURN expr.ret SEMI RCUR
+    {: return new functions.FuncDecl(lst,block,ret); :}
+;
+
+callexpr = 
+    ID.id LPAR exprlist.list? RPAR
+    {: return new functions.CallFunc(list); :}
+  | F_GT LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Gt(a,b); :}
+  | F_GE LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Ge(a,b); :}
+  | F_LT LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Lt(a,b); :}
+  | F_LE LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Le(a,b); :}
+  | F_EQ LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Eq(a,b); :}
+  | F_NEQ LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Neq(a,b); :}
+  | F_HIGHEST LPAR expr.a  RPAR
+    {: return new functions.Highest(a,null); :}
+  | F_HIGHEST LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Highest(a,b); :}
+  | F_LOWEST LPAR expr.a RPAR
+    {: return new functions.Lowest(a,null); :}
+  | F_LOWEST LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Lowest(a,b); :}
+  | F_PICK LPAR expr.a RPAR
+    {: return new functions.Pick(a,null); :}
+  | F_PICK LPAR expr.a COMMA expr.b RPAR
+    {: return new functions.Pick(a,b); :}
+  | F_INPUT LPAR RPAR
+    {: return new functions.Input(); :}
+  | F_SIZEOF LPAR expr.a RPAR
+    {: return new functions.Sizeof(a); :}     
+;
+
+paramlist = 
+    paramlist.lst COMMA ID.id
+    {: lst.add(id); return lst; :}
+  | ID.id
+    {: ArrayList<String> lst = new ArrayList<String>(); lst.add(id); return lst; :}
+;
+
+exprlist = 
+    exprlist.lst COMMA expr.e
+    {: lst.add(e); return lst; :}
+  | expr.e
+    {: ArrayList<Node> lst = new ArrayList<Node>(); lst.add(e); return lst; :}
+;
+
+dietype =
+    D4
+    {: return new dice.Dietypes(dice.Dietypes.Die.d4); :}
+  | D6
+    {: return new dice.Dietypes(dice.Dietypes.Die.d6); :}
+  | D8
+    {: return new dice.Dietypes(dice.Dietypes.Die.d8); :}
+  | D10
+    {: return new dice.Dietypes(dice.Dietypes.Die.d10); :}
+  | D12
+    {: return new dice.Dietypes(dice.Dietypes.Die.d12); :}
+  | D20
+    {: return new dice.Dietypes(dice.Dietypes.Die.d20); :}
+;
+
+expr = 
+    ID.id
+    {: return new expr.Variable(id); :}
+  | INTLIT.i
+    {: return new expr.IntLit(i); :}
+  | dietype.die
+    {: return die; :}
+  | callexpr.calle
+    {: return e; :}
+  
+  | expr.a UNION expr.b
+    {: return new expr.Union(a,b); :}
+  | expr.a COMPLEMENT expr.b
+    {: return new expr.Complement(a,b); :}
+  | expr.a INTERSECT  expr.b
+    {: return new expr.Intersect(a,b); :}
+    
+  | expr.a PLUS expr.b
+    {: return new expr.Plus(a,b); :}
+  | expr.a MINUS expr.b
+    {: return new expr.Minus(a,b); :}
+  | expr.a MULT expr.b
+    {: return new expr.Mult(a,b); :}
+  | expr.a DIV expr.b
+    {: return new expr.Div(a,b); :}
+  | expr.a MOD expr.b
+    {: return new expr.Mod(a,b); :}
+  | LPAR expr.a RPAR
+    {: return a :}
+    
+  | expr.a GT expr.b
+    {: return new expr.Gt(a,b); :}
+  | expr.a EQGT expr.b
+    {: return new expr.Ge(a,b); :}
+  | expr.a LT expr.b
+    {: return new expr.Lt(a,b); :}
+  | expr.a EQLT expr.b
+    {: return new expr.Le(a,b); :}
+  | expr.a EQ expr.b
+    {: return new expr.Eq(a,b); :}
+  | expr NEQ expr
+    {: return new expr.Neq(a,b); :}
+  | BANG expr.a
+    {: return new expr.Bang(a,b); :}
+  | MINUS expr.a
+    {: return new expr.Negative(a); :}
+    
+  | LBRA expr.from TO expr.to RBRA
+    {: return new dice.Range(from,to); :}
+  | LBRA expr.numdice COLO expr.dietype RBRA
+    {: return new dice.Roll(numdice,dietype, null); :}
+  | LBRA expr.numdice COLO expr.dietype COLO rollmodlist.lst RBRA
+    {: return new dice.Roll(numdice,dietype,lst); :}
+  | LBRA          RBRA
+    {: return new dice.EmptyPool(); :}
+  | LBRA exprlist.lst RBRA
+    {: return new dice.ExprPool(lst); :}
+;

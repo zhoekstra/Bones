@@ -1,0 +1,109 @@
+import beaver.Symbol;
+import beaver.Scanner;
+
+import example.ExampleParser.Terminals;
+
+%%
+
+%class LanguageScanner
+%extends Scanner
+%function nextToken
+%type Symbol
+%yylexthrow Scanner.Exception
+%eofval{
+	return new Symbol(Terminals.EOF, "end-of-file");
+%eofval}
+
+LineTerminator = \r|\n|\r\n
+InputCharacter = [^\r\n]
+WhiteSpace     = {LineTerminator} | [ \t\f]
+
+/* comments */
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+
+TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
+DocumentationComment = "/**" {CommentContent} "*"+ "/"
+CommentContent       = ( [^*] | \*+ [^/*] )*
+
+Identifier = [:jletter:] [:jletterdigit:]*
+
+DecIntegerLiteral = 0 | [1-9][0-9]*
+
+StringLiteral = "\"" [^"\""]* ""\"
+
+%%
+
+<YYINITIAL> "gt" {return new Symbol(Terminals.F_GT, yytext()); }
+<YYINITIAL> "lt" {return new Symbol(Terminals.F_LT, yytext()); }
+<YYINITIAL> "ge" {return new Symbol(Terminals.F_GE, yytext()); }
+<YYINITIAL> "le" {return new Symbol(Terminals.F_LE, yytext()); }
+<YYINITIAL> "eq" {return new Symbol(Terminals.F_EQ, yytext()); }
+<YYINITIAL> "neq" {return new Symbol(Terminals.F_NEQ, yytext()); }
+<YYINITIAL> "highest" {return new Symbol(Terminals.F_HIGHEST, yytext()); }
+<YYINITIAL> "lowest" {return new Symbol(Terminals.F_LOWEST, yytext()); }
+<YYINITIAL> "pick" {return new Symbol(Terminals.F_PICK, yytext()); }
+<YYINITIAL> "input" {return new Symbol(Terminals.F_INPUT, yytext()); }
+<YYINITIAL> "sizeof" {return new Symbol(Terminals.F_SIZEOF, yytext()); }
+
+<YYINITIAL> "(" {return new Symbol(Terminals.LPAR, yytext()); }
+<YYINITIAL> ")" {return new Symbol(Terminals.RPAR, yytext()); }
+<YYINITIAL> "{" {return new Symbol(Terminals.LCUR, yytext()); }
+<YYINITIAL> "}" {return new Symbol(Terminals.RCUR, yytext()); }
+<YYINITIAL> "[" {return new Symbol(Terminals.LBRA, yytext()); }
+<YYINITIAL> "]" {return new Symbol(Terminals.RBRA, yytext()); }
+<YYINITIAL> "," {return new Symbol(Terminals.COMMA, yytext()); }
+<YYINITIAL> ";" {return new Symbol(Terminals.SEMI, yytext()); }
+<YYINITIAL> ":" {return new Symbol(Terminals.COLO, yytext()); }
+
+<YYINITIAL> "if" {return new Symbol(Terminals.IF, yytext()); }
+<YYINITIAL> "elseif" {return new Symbol(Terminals.ELSEIF, yytext()); }
+<YYINITIAL> "else" {return new Symbol(Terminals.ELSE, yytext()); }
+<YYINITIAL> "while" {return new Symbol(Terminals.WHILE, yytext()); }
+<YYINITIAL> "in" {return new Symbol(Terminals.IN, yytext()); }
+<YYINITIAL> "for" {return new Symbol(Terminals.FOR, yytext()); }
+<YYINITIAL> "print" {return new Symbol(Terminals.PRINT, yytext()); }
+<YYINITIAL> "var" {return new Symbol(Terminals.VAR, yytext()); }
+<YYINITIAL> "constvar" {return new Symbol(Terminals.CONSTVAR, yytext()); }
+<YYINITIAL> "func" {return new Symbol(Terminals.FUNC, yytext()); }
+<YYINITIAL> "return" {return new Symbol(Terminals.RETURN, yytext()); }
+
+<YYINITIAL> "=" {return new Symbol(Terminals.ASN, yytext()); }
+<YYINITIAL> "==" {return new Symbol(Terminals.EQ, yytext()); }
+<YYINITIAL> "!=" {return new Symbol(Terminals.NEQ, yytext()); }
+<YYINITIAL> ">" {return new Symbol(Terminals.GT, yytext()); }
+<YYINITIAL> "<" {return new Symbol(Terminals.LT, yytext()); }
+<YYINITIAL> ">=" {return new Symbol(Terminals.EQGT, yytext()); }
+<YYINITIAL> "<=" {return new Symbol(Terminals.EQLT, yytext()); }
+<YYINITIAL> "->" {return new Symbol(Terminals.TO, yytext()); }
+<YYINITIAL> "!" {return new Symbol(Terminals.BANG, yytext()); }
+
+<YYINITIAL> "+" {return new Symbol(Terminals.PLUS, yytext()); }
+<YYINITIAL> "-" {return new Symbol(Terminals.MINUS, yytext()); }
+<YYINITIAL> "*" {return new Symbol(Terminals.MULT, yytext()); }
+<YYINITIAL> "/" {return new Symbol(Terminals.DIV, yytext()); }
+<YYINITIAL> "%" {return new Symbol(Terminals.MOD, yytext()); }
+
+<YYINITIAL> "union" {return new Symbol(Terminals.UNION, yytext()); }
+<YYINITIAL> "complement" {return new Symbol(Terminals.COMPLEMENT, yytext()); }
+<YYINITIAL> "intersect" {return new Symbol(Terminals.INTERSECT, yytext()); }
+
+<YYINITIAL> "explode" {return new Symbol(Terminals.EXPLODE, yytext()); }
+<YYINITIAL> "desplode" {return new Symbol(Terminals.DESPLODE, yytext()); }
+<YYINITIAL> "rollagain" {return new Symbol(Terminals.ROLLAGAIN, yytext()); }
+
+<YYINITIAL> "d4" {return new Symbol(Terminals.D4, yytext()); }
+<YYINITIAL> "d6" {return new Symbol(Terminals.D6, yytext()); }
+<YYINITIAL> "d8" {return new Symbol(Terminals.D8, yytext()); }
+<YYINITIAL> "d10" {return new Symbol(Terminals.D10, yytext()); }
+<YYINITIAL> "d12" {return new Symbol(Terminals.D12, yytext()); }
+<YYINITIAL> "d20" {return new Symbol(Terminals.D20, yytext()); }
+
+<YYINITIAL> {Identifier} {return new Symbol(Terminals.ID, yytext()); }
+<YYINITIAL> {DecIntegerLiteral} {return new Symbol(Terminals.INTLIT, yytext()); }
+<YYINITIAL> {StringLiteral} {return new Symbol(Terminals.STRING, yytext()); }
+
+<YYINITIAL> {Comment} { }
+<YYINITIAL> {WhiteSpace} { }
+
+<YYINITIAL> .|\n { throw new Scanner.Exception("invalid token found"+yytext()); }
