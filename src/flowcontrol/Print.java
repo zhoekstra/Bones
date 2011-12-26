@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import util.Node;
 import util.Pool;
 import util.State;
-class Print extends Node{
+public class Print extends Node{
 	ArrayList<Object> printlist;
 	public Print(ArrayList<Object> printlist){
 		this.printlist = printlist;

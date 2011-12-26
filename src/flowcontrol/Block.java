@@ -5,9 +5,9 @@ import util.Node;
 import util.Pool;
 import util.State;
 
-class Block extends Node{
-	ArrayList<Node> stmtlist;
-	public Block(ArrayList<Node> stmtlist){
+public class Block extends Node{
+	Node[] stmtlist;
+	public Block(Node[] stmtlist){
 		this.stmtlist = stmtlist;
 	}
 	public Pool visit(State state) throws Exception{

@@ -3,7 +3,7 @@ import util.Node;
 import util.Pool;
 import util.State;
 import util.State.RemovedGlobalScopeException;
-class ElseIf extends Node{
+public class ElseIf extends Node{
 	Node ifexpr;
 	Node ifblock;
 	public ElseIf(Node ifexpr,Node ifblock){

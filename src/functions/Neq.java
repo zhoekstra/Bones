@@ -2,7 +2,7 @@ package functions;
 import util.Node;
 import util.Pool;
 import util.State;
-class Neq extends Node{
+public class Neq extends Node{
 	Node pool;
 	Node val;
 	public Neq(Node pool,Node val){

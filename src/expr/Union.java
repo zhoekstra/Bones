@@ -3,7 +3,7 @@ import util.Node;
 import util.Pool;
 import util.State;
 
-class Union extends Node{
+public class Union extends Node{
 	Node lhe;
 	Node rhe;
 	public Union(Node lhe,Node rhe){

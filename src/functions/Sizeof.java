@@ -2,7 +2,7 @@ package functions;
 import util.Node;
 import util.Pool;
 import util.State;
-class Sizeof extends Node{
+public class Sizeof extends Node{
 	Node pool;
 	public Sizeof(Node pool){
 		this.pool = pool;

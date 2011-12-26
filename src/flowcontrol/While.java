@@ -2,7 +2,7 @@ package flowcontrol;
 import util.Node;
 import util.Pool;
 import util.State;
-class While extends Node{
+public class While extends Node{
 	Node whileexpr;
 	Node whileblock;
 	public While(Node whileexpr,Node whileblock){

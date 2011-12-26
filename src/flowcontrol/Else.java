@@ -2,7 +2,7 @@ package flowcontrol;
 import util.Node;
 import util.Pool;
 import util.State;
-class Else extends Node{
+public class Else extends Node{
 	Node elseblock;
 	public Else(Node elseblock){
 		this.elseblock = elseblock;

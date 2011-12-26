@@ -2,7 +2,7 @@ package flowcontrol;
 import util.Node;
 import util.Pool;
 import util.State;
-class For extends Node{
+public class For extends Node{
 	String id;
 	Node forexpr;
 	Node forblock;

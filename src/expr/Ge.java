@@ -2,7 +2,7 @@ package expr;
 import util.Node;
 import util.Pool;
 import util.State;
-class Ge extends Node{
+public class Ge extends Node{
 	Node lhe;
 	Node rhe;
 	public Ge(Node lhe,Node rhe){

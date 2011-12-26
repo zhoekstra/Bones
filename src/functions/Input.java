@@ -4,7 +4,7 @@ import java.util.Scanner;
 import util.Node;
 import util.Pool;
 import util.State;
-class Input extends Node{
+public class Input extends Node{
 	String s;
 	Scanner scan = new Scanner(System.in);
 	public Input(String s){

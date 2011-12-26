@@ -2,7 +2,7 @@ package expr;
 import util.Node;
 import util.Pool;
 import util.State;
-class Eq extends Node{
+public class Eq extends Node{
 	Node lhe;
 	Node rhe;
 	public Eq(Node lhe,Node rhe){

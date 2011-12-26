@@ -4,7 +4,7 @@ import java.util.Arrays;
 import util.Node;
 import util.Pool;
 import util.State;
-class Lowest extends Node{
+public class Lowest extends Node{
 	Node pool;
 	Node num;
 	public Lowest(Node pool,Node num){

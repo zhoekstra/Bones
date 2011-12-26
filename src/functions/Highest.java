@@ -4,7 +4,7 @@ import java.util.Arrays;
 import util.Node;
 import util.Pool;
 import util.State;
-class Highest extends Node{
+public class Highest extends Node{
 	Node pool;
 	Node num;
 	public Highest(Node pool,Node num){

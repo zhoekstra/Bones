@@ -4,7 +4,7 @@ import util.Pool;
 import util.State;
 import util.State.Scope.VariableIsConstException;
 import util.State.Scope.VariableNotFoundException;
-class VarAssign extends Node{
+public class VarAssign extends Node{
 	String id;
 	Node expr;
 	public VarAssign(String id,Node expr){

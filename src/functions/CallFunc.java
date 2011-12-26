@@ -5,7 +5,7 @@ import util.Function;
 import util.Node;
 import util.Pool;
 import util.State;
-class CallFunc extends Node{
+public class CallFunc extends Node{
 	String id;
 	ArrayList<Node> exprlist;
 	public CallFunc(String id,ArrayList<Node> exprlist){

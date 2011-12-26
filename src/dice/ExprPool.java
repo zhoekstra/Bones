@@ -13,7 +13,7 @@ import util.State;
  * 
  * evaluates all the expressions and returns a pool that is the union of all expressions
  */
-class ExprPool extends Node{
+public class ExprPool extends Node{
 	ArrayList<Node> exprlist;
 	public ExprPool(ArrayList<Node> exprlist){
 		this.exprlist = exprlist;

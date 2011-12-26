@@ -5,7 +5,7 @@ import java.util.Collections;
 import util.Node;
 import util.Pool;
 import util.State;
-class Pick extends Node{
+public class Pick extends Node{
 	Node pool;
 	Node num;
 	public Pick(Node pool,Node num){

@@ -15,7 +15,7 @@ import util.State;
  * 
  * The example above rolls 5d10, rolling one more d10 for every die that comes up a 10.
  */
-class Roll extends Node{
+public class Roll extends Node{
 	Node numdice;
 	Node dietype;
 	ArrayList<Rollmod> rollmodlist;

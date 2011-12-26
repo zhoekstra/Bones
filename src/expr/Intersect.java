@@ -2,7 +2,7 @@ package expr;
 import util.Node;
 import util.Pool;
 import util.State;
-class Intersect extends Node{
+public class Intersect extends Node{
 	Node lhe;
 	Node rhe;
 	public Intersect(Node lhe,Node rhe){

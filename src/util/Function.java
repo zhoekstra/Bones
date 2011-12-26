@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Function extends Node {
 	public final String name;
 	public final ArrayList<String> params;
-	ArrayList<Node> stmts;
+	Node[] stmts;
 	Node returnval;
 	
-	public Function(String name, ArrayList<String> params, ArrayList<Node> stmts, Node returnval){
+	public Function(String name, ArrayList<String> params, Node[] stmts, Node returnval){
 		this.name = name;
 		this.params = params;
 		this.stmts = stmts;

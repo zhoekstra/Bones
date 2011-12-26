@@ -13,7 +13,7 @@ import util.State;
  * the example would produce the pool [10,11,12,13,14,15,16]
  * 
  */
-class Range extends Node{
+public class Range extends Node{
 	Node from;
 	Node to;
 	public Range(Node from,Node to){

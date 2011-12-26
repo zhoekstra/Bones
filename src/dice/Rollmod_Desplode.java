@@ -15,7 +15,7 @@ import util.State;
  * subtract the result from the value. If that roll is a 1, roll yet another
  * die,and so on.
  */
-class Rollmod_Desplode extends Node implements Rollmod{
+public class Rollmod_Desplode extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Desplode(Node on){
 		this.on = on;

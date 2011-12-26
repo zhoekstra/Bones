@@ -14,7 +14,7 @@ import util.State;
  * the original. So [1:d6:explode 6] may roll 6 - 6 - 4 and return a result of [16].
  * 
  */
-class Rollmod_Explode extends Node implements Rollmod{
+public class Rollmod_Explode extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Explode(Node on){
 		this.on = on;

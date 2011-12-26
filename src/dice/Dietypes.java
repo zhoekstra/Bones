@@ -14,7 +14,7 @@ import util.State;
  * Instead of looking up the symbol from the variable table, just return the pool directly.
  */
 public class Dietypes extends Node {
-	enum Die{d4,d6,d8,d10,d12,d20}
+	public enum Die{d4,d6,d8,d10,d12,d20}
 	Die d;
 	public Dietypes(Die d){
 		this.d = d;

@@ -10,7 +10,7 @@ import util.State;
  *
  * 
  */
-class Rollmod_Rollagain extends Node implements Rollmod{
+public class Rollmod_Rollagain extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Rollagain(Node on){
 		this.on = on;

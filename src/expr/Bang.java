@@ -3,7 +3,7 @@ import util.Node;
 import util.Pool;
 import util.State;
 
-class Bang extends Node{
+public class Bang extends Node{
 	Node expr;
 	public Bang(Node expr){
 		this.expr = expr;

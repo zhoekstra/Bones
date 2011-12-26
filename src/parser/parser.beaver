@@ -1,6 +1,6 @@
 %class "BonesParser";
-
-%import "nodes.*";
+%header {: package parser; :};
+%import "util.*";
 
 %terminals            F_GT, F_LT, F_GE, F_LE, F_EQ, F_NEQ, F_HIGHEST, F_LOWEST, F_PICK, F_INPUT, F_SIZEOF;
 %terminals            LPAR, RPAR, LCUR, RCUR, LBRA, RBRA, COMMA, SEMI, COLO;
@@ -27,11 +27,19 @@
 %left   LPAR, RPAR;
 %left   LBRA, RBRA;
 
+%typeof ID,STRING,INTLIT = "String";
+%typeof script,elseif,stmt,else,funcdecl,callexpr,dietype,expr = "Node";
+%typeof exprlist = "ArrayList<Node>";
+%typeof paramlist = "ArrayList<String>";
+%typeof printlist = "ArrayList<Object>";
+%typeof rollmodlist = "ArrayList<dice.Rollmod>";
+%typeof rollmod = "dice.Rollmod";
+
 %goal program;
 
 program =
-	script*.s
-	{return s;}
+	script.s+
+	{: return new flowcontrol.Program(s); :}
 ;
 
 script =
@@ -42,21 +50,21 @@ script =
 ;
 
 elseif = 
-    ELSE IF LPAR expr.e RPAR stmt.block
+    ELSEIF LPAR expr.e RPAR stmt.block
     {: return new flowcontrol.ElseIf(e,block); :}
 ;
 
 stmt = 
     LCUR stmt.block* RCUR
     {: return new flowcontrol.Block(block); :}
-  | IF LPAR expr.ife RPAR stmt.ifblock elseif*.elseiflist else.elseblock?
+  | IF LPAR expr.ife RPAR stmt.ifblock elseif.elseiflist* else.elseblock?
     {: return new flowcontrol.If(ife,ifblock,elseiflist,elseblock); :}
   | FOR LPAR ID.id IN expr.e RPAR stmt.block
     {: return new flowcontrol.For(id,e,block); :}
   | WHILE LPAR expr.e RPAR stmt.block
     {: return new flowcontrol.While(e,block); :}
   | PRINT printlist.lst SEMI
-    {: return new Print(lst); :}
+    {: return new flowcontrol.Print(lst); :}
   | VAR ID.id ASN expr.e SEMI
     {: return new flowcontrol.VarDecl(id,e); :}
   | CONSTVAR ID.id ASN expr.e SEMI
@@ -67,13 +75,13 @@ stmt =
 
 printlist =
 	STRING.str
-	{: Arraylist<Object> lst = new ArrayList<Object>(); lst.add(str); return lst; :}
+	{: ArrayList<Object> lst = new ArrayList<Object>(); lst.add(str); return new Symbol(lst); :}
   | expr.e
-    {: Arraylist<Object> lst = new ArrayList<Object>(); lst.add(e); return lst; :}
+    {: ArrayList<Object> lst = new ArrayList<Object>(); lst.add(e); return new Symbol(lst); :}
   | printlist.lst COMMA STRING.str
-    {: lst.add(str); return lst; :}
+    {: lst.add(str); return new Symbol(lst); :}
   | printlist.lst COMMA expr.e
-    {: lst.add(e); return lst; :}
+    {: lst.add(e); return new Symbol(lst); :}
 ;
 
 else =
@@ -83,9 +91,9 @@ else =
 
 rollmodlist = 
     rollmodlist.lst COMMA rollmod.r
-    {: lst.add(r); return lst; :}
+    {: lst.add(r); return new Symbol(lst); :}
   | rollmod.r
-    {: ArrayList<dice.Rollmod> lst = new ArrayList<dice.Rollmod>; lst.add(r); return lst; :}
+    {: ArrayList<dice.Rollmod> lst = new ArrayList<dice.Rollmod>(); lst.add(r); return new Symbol(lst); :}
 ;
 
 rollmod = 
@@ -98,13 +106,13 @@ rollmod =
 ;
 
 funcdecl = 
-    FUNC ID LPAR paramlist.lst? RPAR LCUR stmt.block* RETURN expr.ret SEMI RCUR
-    {: return new functions.FuncDecl(lst,block,ret); :}
+    FUNC ID.id LPAR paramlist.lst? RPAR LCUR stmt.block* RETURN expr.ret SEMI RCUR
+    {: return new functions.FuncDecl(id,lst,block,ret); :}
 ;
 
 callexpr = 
     ID.id LPAR exprlist.list? RPAR
-    {: return new functions.CallFunc(list); :}
+    {: return new functions.CallFunc(id,list); :}
   | F_GT LPAR expr.a COMMA expr.b RPAR
     {: return new functions.Gt(a,b); :}
   | F_GE LPAR expr.a COMMA expr.b RPAR
@@ -129,24 +137,24 @@ callexpr =
     {: return new functions.Pick(a,null); :}
   | F_PICK LPAR expr.a COMMA expr.b RPAR
     {: return new functions.Pick(a,b); :}
-  | F_INPUT LPAR RPAR
-    {: return new functions.Input(); :}
+  | F_INPUT LPAR STRING.str? RPAR
+    {: return new functions.Input(str); :}
   | F_SIZEOF LPAR expr.a RPAR
     {: return new functions.Sizeof(a); :}     
 ;
 
 paramlist = 
     paramlist.lst COMMA ID.id
-    {: lst.add(id); return lst; :}
+    {: lst.add(id); return new Symbol(lst); :}
   | ID.id
-    {: ArrayList<String> lst = new ArrayList<String>(); lst.add(id); return lst; :}
+    {: ArrayList<String> lst = new ArrayList<String>(); lst.add(id); return new Symbol(lst); :}
 ;
 
 exprlist = 
     exprlist.lst COMMA expr.e
-    {: lst.add(e); return lst; :}
+    {: lst.add(e); return new Symbol(lst); :}
   | expr.e
-    {: ArrayList<Node> lst = new ArrayList<Node>(); lst.add(e); return lst; :}
+    {: ArrayList<Node> lst = new ArrayList<Node>(); lst.add(e); return new Symbol(lst); :}
 ;
 
 dietype =
@@ -172,7 +180,7 @@ expr =
   | dietype.die
     {: return die; :}
   | callexpr.calle
-    {: return e; :}
+    {: return calle; :}
   
   | expr.a UNION expr.b
     {: return new expr.Union(a,b); :}
@@ -192,7 +200,7 @@ expr =
   | expr.a MOD expr.b
     {: return new expr.Mod(a,b); :}
   | LPAR expr.a RPAR
-    {: return a :}
+    {: return a; :}
     
   | expr.a GT expr.b
     {: return new expr.Gt(a,b); :}
@@ -204,10 +212,10 @@ expr =
     {: return new expr.Le(a,b); :}
   | expr.a EQ expr.b
     {: return new expr.Eq(a,b); :}
-  | expr NEQ expr
+  | expr.a NEQ expr.b
     {: return new expr.Neq(a,b); :}
   | BANG expr.a
-    {: return new expr.Bang(a,b); :}
+    {: return new expr.Bang(a); :}
   | MINUS expr.a
     {: return new expr.Negative(a); :}
     

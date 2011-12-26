@@ -2,7 +2,7 @@ package flowcontrol;
 import util.Node;
 import util.Pool;
 import util.State;
-class VarDecl extends Node{
+public class VarDecl extends Node{
 	String id;
 	Node expr;
 	public VarDecl(String id,Node expr){

@@ -3,7 +3,7 @@ import util.Node;
 import util.Pool;
 import util.State;
 import util.State.Scope.VariableNotFoundException;
-class Variable extends Node{
+public class Variable extends Node{
 	String id;
 	public Variable(String id){
 		this.id = id;

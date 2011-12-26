@@ -5,12 +5,12 @@ import util.Node;
 import util.Pool;
 import util.State;
 import util.State.RemovedGlobalScopeException;
-class If extends Node{
+public class If extends Node{
 	Node ifexpr;
 	Node ifblock;
-	ArrayList<Node> elseiflist;
+	Node[] elseiflist;
 	Node elsen;
-	public If(Node ifexpr,Node ifblock,ArrayList<Node> elseiflist,Node elsen){
+	public If(Node ifexpr,Node ifblock,Node[] elseiflist,Node elsen){
 		this.ifexpr = ifexpr;
 		this.ifblock = ifblock;
 		this.elseiflist = elseiflist;
