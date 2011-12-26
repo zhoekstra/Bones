@@ -3,7 +3,18 @@ package dice;
 import util.Node;
 import util.Pool;
 import util.State;
-
+/**
+ * 
+ * @author zach
+ * desplode [8 -> 10]
+ * 
+ * The Desplode mod
+ * For every die that rolls one of the numbers that it will desplode on, roll
+ * another die and subtract that result from the original die. This is recursive,
+ * So [1:d6:desplode 1] will roll a d6. If its a 1, it will roll another d6 and
+ * subtract the result from the value. If that roll is a 1, roll yet another
+ * die,and so on.
+ */
 class Rollmod_Desplode extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Desplode(Node on){

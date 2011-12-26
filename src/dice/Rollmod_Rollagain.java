@@ -4,6 +4,12 @@ import util.Node;
 import util.Pool;
 import util.State;
 
+/**
+ * 
+ * @author zach
+ *
+ * 
+ */
 class Rollmod_Rollagain extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Rollagain(Node on){

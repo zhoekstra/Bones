@@ -3,7 +3,17 @@ package dice;
 import util.Node;
 import util.Pool;
 import util.State;
-
+/**
+ * 
+ * @author zach
+ * explode highest(d10)
+ * 
+ * dice with this mod will explode on the specified numbers. If a die rolls the
+ * number specified, roll the die again and add it to the original. For example,
+ * [1:d6:explode 6] will roll 1d6. If it rolls a 6, roll it again and add it to
+ * the original. So [1:d6:explode 6] may roll 6 - 6 - 4 and return a result of [16].
+ * 
+ */
 class Rollmod_Explode extends Node implements Rollmod{
 	Node on;
 	public Rollmod_Explode(Node on){

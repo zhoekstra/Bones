@@ -6,13 +6,12 @@ import util.Pool;
 import util.State;
 class Print extends Node{
 	ArrayList<Object> printlist;
-	private static final Node n = new Node();
 	public Print(ArrayList<Object> printlist){
 		this.printlist = printlist;
 	}
 	public Pool visit(State state) throws Exception{
 		for (Object i : printlist){
-			if(i.getClass().isInstance(n))
+			if(i instanceof Node)
 				System.out.print(((Node)i).visit(state));
 			else
 				System.out.print(i);

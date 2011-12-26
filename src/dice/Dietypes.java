@@ -4,6 +4,15 @@ import util.Node;
 import util.Pool;
 import util.State;
 
+/**
+ * @author zach
+ * d4 | d6 | d8 | d10 | d12 | d20
+ * Intepreter supported dietypes.
+ * 
+ * Added whenever the interpreter encounters one of the language specified symbols.
+ * 
+ * Instead of looking up the symbol from the variable table, just return the pool directly.
+ */
 public class Dietypes extends Node {
 	enum Die{d4,d6,d8,d10,d12,d20}
 	Die d;

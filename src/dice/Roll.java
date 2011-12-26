@@ -4,7 +4,17 @@ import java.util.ArrayList;
 import util.Node;
 import util.Pool;
 import util.State;
-
+/**
+ * 
+ * @author zach
+ * [5:d10:rollagain 10]
+ * Roll Pool Constructor
+ * 
+ * constructs a pool with the specified number of dice of the specified dietype.
+ * Also applies any specified roll mods as well.
+ * 
+ * The example above rolls 5d10, rolling one more d10 for every die that comes up a 10.
+ */
 class Roll extends Node{
 	Node numdice;
 	Node dietype;

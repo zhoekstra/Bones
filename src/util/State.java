@@ -13,6 +13,7 @@ public class State {
 	
 	private Stack<Scope> _scopestack;
 	private Scope _globalscope = new Scope(null);
+	public TreeMap<String,Function> _functiontable = new TreeMap<String,Function>();
 	public State(){
 		_scopestack.push(_globalscope);
 	}
@@ -45,6 +46,22 @@ public class State {
 	}
 	public void changeVariable(String id, Pool expr) throws VariableIsConstException, VariableNotFoundException{
 		_scopestack.peek().changeVar(id, expr);
+	}
+	
+	public void addFunction(Function f) throws FunctionAlreadyExistsException{
+		String key = f.name+"$$"+f.params.size();
+		if(_functiontable.containsKey(key))
+			throw new FunctionAlreadyExistsException(f,_functiontable.get(key));
+		else
+			_functiontable.put(key, f);
+	}
+	
+	public Function getFunction(String name, int numargs) throws FunctionDoesNotExistException{
+		String key = name+"$$"+numargs;
+		if(_functiontable.containsKey(key))
+			return _functiontable.get(key);
+		else
+			throw new FunctionDoesNotExistException(name,numargs);
 	}
 	
 	
@@ -105,4 +122,19 @@ public class State {
 		}
 	}
 
+	public class FunctionAlreadyExistsException extends Exception{
+		private static final long serialVersionUID = 4206688585433062666L;
+		public FunctionAlreadyExistsException(Function tried, Function alreadyexists){
+			super("Function "+alreadyexists+" cannot be overwritten by Function "+tried+". They have the same number of arguments.");
+		}
+		
+	}
+	
+	public class FunctionDoesNotExistException extends Exception{
+		private static final long serialVersionUID = 6667114577217294301L;
+		public FunctionDoesNotExistException(String name, int numargs){
+			super("Function "+name+"("+numargs+") doesn't exist yet. Have you declared it yet?");
+		}
+		
+	}
 }
