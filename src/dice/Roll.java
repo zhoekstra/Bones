@@ -27,12 +27,14 @@ public class Roll extends Node{
 	public Pool visit(State state) throws Exception{
 		int num = numdice.visit(state).asInt();
 		Pool diet = dietype.visit(state);
-		Integer[] die = (Integer[])diet.toArray();
+		Integer[] die = new Integer[diet.size()];
+		die = diet.toArray(die);
 		Pool result = new Pool();
 		for (int i = 0; i < num; ++i)
 			result.add(die[State.rand.nextInt(die.length)]);
-		for(Rollmod r: rollmodlist)
-			result = r.modRoll(state,result, diet);
+		if (rollmodlist != null)
+			for(Rollmod r: rollmodlist)
+				result = r.modRoll(state,result, diet);
 		return result;
 	}
 }

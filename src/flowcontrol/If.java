@@ -23,12 +23,15 @@ public class If extends Node{
 			state.popScope();
 			return Pool.False;
 		}
-		for(Node i : elseiflist)
-			if(i.visit(state).asBool()) return Pool.False;
+		if(elseiflist !=null)
+			for(Node i : elseiflist)
+				if(i.visit(state).asBool()) return Pool.False;
 		
-		state.pushStandardScope();
-		elsen.visit(state);
-		state.popScope();
+		if (elsen !=null){
+			state.pushStandardScope();
+			elsen.visit(state);
+			state.popScope();
+		}
 		return Pool.False;
 		
 	}

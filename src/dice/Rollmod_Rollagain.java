@@ -21,7 +21,8 @@ public class Rollmod_Rollagain extends Node implements Rollmod{
 	@Override
 	public Pool modRoll(State state, Pool roll, Pool dietype) throws Exception {
 		Pool desplode_on = on.visit(state);
-		Integer[] die = (Integer[])dietype.toArray();
+		Integer[] die = new Integer[dietype.size()];
+		die = dietype.toArray(die);
 		Pool toadd = new Pool();
 		for(Integer i : roll){
 			int rolled = i;

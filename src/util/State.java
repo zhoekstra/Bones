@@ -11,7 +11,7 @@ import util.State.Scope.VariableNotFoundException;
 public class State {
 	public final static Random rand = new Random();
 	
-	private Stack<Scope> _scopestack;
+	private Stack<Scope> _scopestack =  new Stack<Scope>();
 	private Scope _globalscope = new Scope(null);
 	public TreeMap<String,Function> _functiontable = new TreeMap<String,Function>();
 	public State(){

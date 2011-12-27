@@ -13,8 +13,11 @@ public class Print extends Node{
 		for (Object i : printlist){
 			if(i instanceof Node)
 				System.out.print(((Node)i).visit(state));
-			else
-				System.out.print(i);
+			else if(i instanceof String){
+				String s = (String)i;
+				s = s.substring(1, s.length()-1);
+				System.out.print(s);
+			}
 		}
 		System.out.println();
 		return Pool.False;

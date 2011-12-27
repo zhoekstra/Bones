@@ -7,7 +7,6 @@ import beaver.*;
  * <a href="http://beaver.sourceforge.net">Beaver</a> v0.9.6.1
  * from the grammar specification "parser.beaver".
  */
-@SuppressWarnings("unchecked")
 public class BonesParser extends Parser {
 	static public class Terminals {
 		static public final short EOF = 0;
@@ -26,92 +25,95 @@ public class BonesParser extends Parser {
 		static public final short LBRA = 13;
 		static public final short F_INPUT = 14;
 		static public final short F_SIZEOF = 15;
-		static public final short D4 = 16;
-		static public final short D6 = 17;
-		static public final short D8 = 18;
-		static public final short D10 = 19;
-		static public final short D12 = 20;
-		static public final short D20 = 21;
-		static public final short INTLIT = 22;
-		static public final short BANG = 23;
-		static public final short UNION = 24;
-		static public final short COMPLEMENT = 25;
-		static public final short INTERSECT = 26;
-		static public final short NEQ = 27;
-		static public final short EQ = 28;
-		static public final short GT = 29;
-		static public final short EQGT = 30;
-		static public final short LT = 31;
-		static public final short EQLT = 32;
-		static public final short PLUS = 33;
-		static public final short MULT = 34;
-		static public final short DIV = 35;
-		static public final short MOD = 36;
-		static public final short RPAR = 37;
-		static public final short COMMA = 38;
-		static public final short LCUR = 39;
-		static public final short FOR = 40;
-		static public final short VAR = 41;
-		static public final short CONSTVAR = 42;
-		static public final short IF = 43;
-		static public final short WHILE = 44;
-		static public final short PRINT = 45;
-		static public final short SEMI = 46;
-		static public final short RBRA = 47;
-		static public final short RCUR = 48;
-		static public final short ASN = 49;
-		static public final short STRING = 50;
-		static public final short FUNC = 51;
-		static public final short RETURN = 52;
+		static public final short F_SUM = 16;
+		static public final short D4 = 17;
+		static public final short D6 = 18;
+		static public final short D8 = 19;
+		static public final short D10 = 20;
+		static public final short D12 = 21;
+		static public final short D20 = 22;
+		static public final short INTLIT = 23;
+		static public final short BANG = 24;
+		static public final short UNION = 25;
+		static public final short COMPLEMENT = 26;
+		static public final short INTERSECT = 27;
+		static public final short NEQ = 28;
+		static public final short EQ = 29;
+		static public final short GT = 30;
+		static public final short EQGT = 31;
+		static public final short LT = 32;
+		static public final short EQLT = 33;
+		static public final short PLUS = 34;
+		static public final short MULT = 35;
+		static public final short DIV = 36;
+		static public final short MOD = 37;
+		static public final short RPAR = 38;
+		static public final short COMMA = 39;
+		static public final short LCUR = 40;
+		static public final short FOR = 41;
+		static public final short VAR = 42;
+		static public final short CONSTVAR = 43;
+		static public final short IF = 44;
+		static public final short WHILE = 45;
+		static public final short PRINT = 46;
+		static public final short SEMI = 47;
+		static public final short RBRA = 48;
+		static public final short RCUR = 49;
+		static public final short ASN = 50;
+		static public final short STRING = 51;
+		static public final short FUNC = 52;
 		static public final short COLO = 53;
 		static public final short ELSEIF = 54;
 		static public final short EXPLODE = 55;
 		static public final short DESPLODE = 56;
 		static public final short ROLLAGAIN = 57;
-		static public final short IN = 58;
-		static public final short TO = 59;
-		static public final short ELSE = 60;
+		static public final short RETURN = 58;
+		static public final short IN = 59;
+		static public final short TO = 60;
+		static public final short ELSE = 61;
 	}
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjM7Ty54KK$gul0j9450jDcYWHY9H480e40Wc4eg1Y0SK6Y0rxeoXsG6meHQNtBXP4EWf" +
-		"4UczYxmgANSVlPbykUtkNtGiO$xhBxyqtyzutxqtRAG6CdUY27BJ2LUY3lhWLT#413C4J68" +
-		"bkU0bZSIakm#NeYIjm9TeZjuZiqkY0R2n4RTH5FLo8bcY2PkfljHlji2nQYtGqL$km6pMB6" +
-		"2E8YdW3xw0aJaSrYyyyjQTO#pQtMBqdsKbsafra9zb9TfATP1S$EoNsFePJzVqjdYLMSouQ" +
-		"e17ETx0yYc7qzPg5SOcDdG839rXkXeNxUXhFE5YVm$Fq5Nqpl5ZtfGpyo8CF6n32F9H006T" +
-		"gVU6#KbYZ5FPXaUQjOOroc82pC0TUsifZ8jix2JNK15H71GS$9phOAjFJIRRshiSczIjEHb" +
-		"dQAc4Newn2BTs6KnmyLN6mTQAdPROeTRJ7iyCfe#MF$3ckOnBjvJISWHwehsjLZR4w#UdjO" +
-		"BsMzlEqpuQkxRc1riBjDv6HgdsqHgQZdvjnDQvpODn2JcFjgP#ZdplGrANDTvALvjglUt61" +
-		"vjpcmBgVl9TnjwEVXz52#taGGnruWybynS7#EEqPsiz5BYqVWHIrpi7#ebwBflr9FEl0V1M" +
-		"ZCQu8Qt4AtgRdBDs#ZZhjhDEkhcEz3DqrfvTE5#Czc#ThjFxw8duRRs8bRjHr9kiO$NL#W4" +
-		"vdE$Zve0Wnbc07RfUzUg36UtHwdqjRdI8iq7KVqkaWdRRbgtqDBO$eqcCwdOysM7sC4PxI7" +
-		"eRhT9HENv0#ZDVukawdOZfc7cC4i#uqxMU6JcT9XBSqBjNfYkCOfVTrtGtOgjRpD7aNowdR" +
-		"hdLhiGuVOYCsOmnrUx4bhfz4TTkmK#t77dXuwlXu8WMu0a8yBKlml2p9ywaqpvSoF2lAyKI" +
-		"gmBEa8a#EIaLaD#SUqP9xxIayzojpJp#Tk$gP06hotF7Pj5MupuVr3OiOepPFdBeyRy9dpB" +
-		"aMdutehJZxbbAitfFi93l9JhAJx2GxoKwo$mzsx7tClB$5iyHggg4wQk0i1qluTkVX7RU0a" +
-		"MvZU$Wwpx3S39rzkKMAlXcQVSdWNoE#DJDu6yv4Axv0J7tXlZpaUbd3v3LcZIpU$MhnbP9D" +
-		"MoVsnyVRUNs#1ZloPUtK9YTRE4fqUrkZFKV3onUIXn5oAJdIXhJZYEABEofccXePUVSnYVQ" +
-		"IeVzpbJ$2TgkJ7#TPz4IrpyrF8fwyZYCKzkFbNsAUdFsujRd0Ko9#tDhK9S7skFVERGKbDY" +
-		"E9UCfVRMvjShRRLriRVek#g5OckeQYQ$def$1l9V7sDA0Viqwjc1Wfn$WbssFu8Z4yHUgpK" +
-		"uHOFvdiGMER9GMTkLFzLn7YzQ49cgBPCKOmwxf5EFvH2fycDNcQDE1VmVuGFid2#qr3sNVZ" +
-		"#KbKbygpe2Qz0FiVHlWNo6JIB9pF5#h6KIf9$cV14Ko64eS3GTOFzABSL50db2QyFCf6odW" +
-		"MnX37qdQzQGjMOxA0kXNK3Gxh57yi3pJjE5byxMQoJdI7QF#1#1lhPmEUClh$Fl3K0lpV4P" +
-		"i31cDukX6d4FiIvn47azU9E9hr6TSpb#NAnBKiroOU83Oa7cKy#WeEfBqTiQl4hGXuIz7sU" +
-		"VJOU6kmtYR9fp7M2SJERCiVLFIdZMFZlO5ur5hFBeppA7aF4Kybla2i8$fXBCyYib$ULSGS" +
-		"qR$CybuYnzrxX7YRw3S3lXB4HuXLYI#A$cEMcn2d4JiIbuYU$VNr8NAUVFSJ3ud#5vP7iTr" +
-		"bpR9lEdM7PJvQihoSjiPYsqLTK6mPB7D#0ctCiZz8NVuySloDS1y$aR91oINd368zuQUoRb" +
-		"ypRt0iGbnVHXEnTM2#4h4tCPru3x5Tz3Y6VfIw$GJ92JrEOLm$rsmeNNW7QUCS#xb6GbS9z" +
-		"qwMbx8yH3Wo5WRxxj$ESfYxC3gUCOF2#J6udemdAK#p$Pm3W#lT$otvYvYVQ7BvlS7O6Zlt" +
-		"0QwNG5ERBjsID$Bp$3na3WASoy1Zb5mBRsYiR$zciNriuRKI$5AmkyKssf9V8RXQC2#wNh2" +
-		"yO4L1cQTWJy41WeC4Hmak5jmhUA0WPcXZTFj3zMFx56fWoQSAIko0O2ZBNY#Ua9SjsCEclr" +
-		"nme4r$d#23DlqKmHas$Mp1UJRz5i7jDlq#I$vWjCsmvdqsMz2IBn5j2uwCxRTHsf8lMv0tr" +
-		"m9Zrn2RZ6$#DsYasNqv2VajukWkj9LRM$gytwBlBTW$lk$0a3ZSVkvjmduJr3$gB$MdpXrL" +
-		"lwZV83zrHFselbVSnTGdiFpKTv7SjphzXlAP#fJfMvGtAOifRr3urQk559vkQZw5kuEQGvb" +
-		"DuMwXPb9cg7UrbrqwNQsMg7VKsphFyqfnpr7SgzKghPcgLgeLQhbQfjvJIoqjscd9xx3ajr" +
-		"losopvhPRy5i7DEjqafOqw$L1AUJhT8AKF8dNVr#aKAV5iKHzHkAUg0sgoEgGcCJTHhL9Vg" +
-		"CyZTRwEvBuI$58TLZz5j7#edzNlYFDJUtMwLgq9tmxGKx#Gita7wagyIAGr0hmfUIXUtff0" +
-		"yUYRKWunHxzteT#yMSGiRGk913JFnB3u#UBsYFYqT6Bz3lezxk4xm1kHzlJLdhgsACdxAYW" +
-		"Utj3yb60Xue#BNLYtIwIkNx$ASrdE96OIMnGYpMF4TnpY5Gc8XAJiGxT$0KTQViK=");
+		"U9pjMtby5TKL$jvacVSIYr15G5pAaaGKPLzKG26140XB3BXLggrBjLfRgxLIgT2wL8lIsj8" +
+		"MqIeWAee8k8j4KL5KK55HL5mZ5gsqBXLQM#hrUsTE9lCcavltJFpz#iVCxtVETxRvphrtxh" +
+		"pCl0T0SHVpFmp08NW2Hs8Cgd4KZiLtS0hEn4ym2DDn4Nw5mt0uXc4uHk0878H#A44IHTWDt" +
+		"V4jTCRUs0Vx1IBNO0bMun5SZ#MuEn1$CUS#PPO#oL2VGlJ6mVWBHdw5FfKHVJo#HQZFx6Cs" +
+		"evVPcMi7ytgeGwQNEPDSH##DD1yJaAVsBIXGwuusuNu1yp4Rr$dUgwYbzuTMSWyMDe$pBXo" +
+		"7kVYJUXlncrPofuIdMBItrjyGUtVHhUFk81nxYEuekfFeBct0tLKuzXMzl#Xkediqmzqp1#" +
+		"uJTIKE5Au#elkdjNabPww6FNSgtiL0iS$YdXigrhbmC4gi2c5VW3$cp9zh$MBqmYhCawutu" +
+		"K71F#FdE01ZnHudUgBe2r6AUp03zt$jeuhhu$guFgwFw#Fwk3wkZ#ljzUqnMPxGfeW#MlJn" +
+		"ejlZ1C6JH7zFdYkVZ7XhQuTlOa$iPSby7wVZClAT9ampSH#6u0onVoZwNhp9x8$5Fa$qnNZ" +
+		"DmdSsVcJ9$XJda#rdmZDBz2MYVotwAlmMLwkU8tFQWhSjREtnEpdlzw8NYBuSL#9vN8kNSG" +
+		"LknEqIUmjFumPMsvXMIkK3eZVmZTwrLFUrCZqi76j5FodwK3mhU3EpMyHQXrln46x3KYjJk" +
+		"IKxclawhC1ZU9JZNOzdh4nLUCcI7y#AJTYCD$0ENW6iJ9C0QqKDQneF6zFK5ckE2N3PcBwT" +
+		"HTKqdyl6zDsindwoSZLVyOECLR1LdjCYrmLPS$soHQvBi#PQs2BNigovxfIyxVvhUgonNIV" +
+		"pLAZwST$wHHCc#tqVFfwoL3#N4zFhVl#euwjyLaSpnJsoxM6BHJ5b6mCIS927VFcUCVsN8y" +
+		"MgOlcMhHrsPuyE7DKU75T7ZgmJptJGXMTtvVdxac5$idKBH0v0Bnp89u3qNuf30l61EVSfj" +
+		"VJf4kgJVkeu4YFP8VS#KVDfuCiBzIb56PzjMZkJJ2#pGwxSZJClz#snljKstACuwug0vz3h" +
+		"soRSZQCVWqhVgsv3Rc#jWv6suswg$t#vdOYLy7Hf6#mvnzzp3YPai4$XJicLFzVwSToV0xJ" +
+		"VPCM#vAYCc6qjtrucSSu3llPHnVLnVLmVryVrSNrS7zV7zItLD$Va6vM9UZliZXxeYH9B9l" +
+		"t#DiZdS#WDos3j8sztmOY3mrhWisURdzKG3CMXgXlcP6EBOkhBzwRH7FDupgfAOpMOo54di" +
+		"cOQpEe#rbdaEYOFX$lP$kpGdtlXS2kJVIKJFDzZ6SmPHxsp1vbiUO#hbAl6jtjZx4p6M2l8" +
+		"PVoZPQPikR9XoeuhEwPikB9TXPXByfRxppGvhFTVmcCCLllMW2PCrli#fxxM#xufKqF$fhE" +
+		"phbOEFHhd6FTekOSj5icKRGpOEilxtdbWMiqA2E1kyj2PeJWNI1n3l9tEAE9Q#SOPJleNXa" +
+		"74pu2YUY1lD#9sOa$YJk8mvek8KuXx4SyYpYTUGbn8l8uuWdWtwT9SdOXRY6KwjdEOsq2Al" +
+		"JF7bxULO$nGxLtCbm7vUz8vWsFXkDmA#hs9dmVF2mkFKrd7skH#n1E81sjy9ltpw9SJhoJM" +
+		"Qfnpp5zC$tJYQk9qBvxeJ7yJ$Qk8d7$o1esF10howTz9t8VukCO$fSzrJsucLXDrBWvh2ax" +
+		"Xk6iyls06Sxiqruq#huEhFGjuBL8TD5TAdzV4lLnpNCjKTysTIPkrpbIzjeCfv2tWDKiDqT" +
+		"WSe93NBZNMymjv$TpbchkCYdDohz0ShsaHnrp8Qrfq797NjEYYp7LrXdbOD9kAQ#MkrFMxH" +
+		"Za$u7dS0wbfTDRHNq$vE71TTdYOx4Vfpzn$MS#zaZgRQzT3S#nVo7sJkfWnNI#7zUwnQbVf" +
+		"65Oerl6SeoWEp#EUIirLdgcK4iQufr9BDPQU9$TLQgFw3JqvNvVxBBMDFMTcpZbv0ONx3#d" +
+		"zSZI5zqjY6Uk9BlTYQWTZrOtrxWBw5mOvlBZS1ul2SStrLkoZE4XngEBnYjCKJr8yMV4qHT" +
+		"qdYTcASnIlLfpRsDCf2urXLSIuwWBs6iLw3$65#jkYvXJ1jLtneyouqqznO2ZUi8UJcN6tM" +
+		"B5TAAxtZDin5E#is3KK7nwmoqEvCG6xEfIR5B3F3OsvfEcytVD3$lI0FQFHRbXFTxxYfOhp" +
+		"5AyDSsVoOcF0BccqtUirDe4sxpMdSw1kISHubsXkMI1Mvs4YeVCyA91Rq$oOtFg8s7iX$$r" +
+		"6Ezan46$OBndNFv2V5vZ7PerzqjnOCi$5LW$C5sQNuMUG#PnoB#KU2Zzxp5qKVhQRbPGLbE" +
+		"KKtlE6dxTcAUKsogsK9MQLyBmi#b7pWBdVt2Vs7PHRA3TJ7f78JMQDUTWyPEhCQlCW$CEy5" +
+		"B0t1UmN0$OB0VlvWBrHyJdHpwhtZEWDwgqN$RHww$npdr2KV#5W5glt3kKjofkKDyoDvcsp" +
+		"YDP2dSDdPeVvby$mYVd8$DtyWrOz0eVPxbiVYluRPQjvr$pLlETdFl2jztKDjvcFpQT#z3$" +
+		"cd#RV0SwTllMQULLmhNcCpqh0YTpP2Og3ASHobT4eaD$0AcXNoF#JI3$X9EHNuud4z5ju5M" +
+		"DLjCSHnqdELIcGEW$Jaez9p7kI9pAPvrSJgnaR8x#GUZAUNECP6ujYIXByoqH9y3qxdrBOZ" +
+		"EH7OYtFhVNFzQI6FMiOgoHM4ezeHaOqaRnMYADIeEAgduUfNm9Mdk5x");
 
 	private final Action[] actions;
 
@@ -159,19 +161,26 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.ElseIf(e,block);
 				}
 			},
-			new Action() {	// [6] lst$stmt = stmt
+			new Action() {	// [6] stmt = expr.e SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 1];
+					final util.Node e = (util.Node) _symbol_e.value;
+					 return e;
+				}
+			},
+			new Action() {	// [7] lst$stmt = stmt
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [7] lst$stmt = lst$stmt stmt
+			new Action() {	// [8] lst$stmt = lst$stmt stmt
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
-			Action.NONE,  	// [8] opt$lst$stmt = 
-			Action.RETURN,	// [9] opt$lst$stmt = lst$stmt
-			new Action() {	// [10] stmt = LCUR opt$lst$stmt.block RCUR
+			Action.NONE,  	// [9] opt$lst$stmt = 
+			Action.RETURN,	// [10] opt$lst$stmt = lst$stmt
+			new Action() {	// [11] stmt = LCUR opt$lst$stmt.block RCUR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_block = _symbols[offset + 2];
 					final ArrayList _list_block = (ArrayList) _symbol_block.value;
@@ -179,21 +188,21 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.Block(block);
 				}
 			},
-			new Action() {	// [11] lst$elseif = elseif
+			new Action() {	// [12] lst$elseif = elseif
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [12] lst$elseif = lst$elseif elseif
+			new Action() {	// [13] lst$elseif = lst$elseif elseif
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
-			Action.NONE,  	// [13] opt$lst$elseif = 
-			Action.RETURN,	// [14] opt$lst$elseif = lst$elseif
-			Action.NONE,  	// [15] opt$else = 
-			Action.RETURN,	// [16] opt$else = else
-			new Action() {	// [17] stmt = IF LPAR expr.ife RPAR stmt.ifblock opt$lst$elseif.elseiflist opt$else.elseblock
+			Action.NONE,  	// [14] opt$lst$elseif = 
+			Action.RETURN,	// [15] opt$lst$elseif = lst$elseif
+			Action.NONE,  	// [16] opt$else = 
+			Action.RETURN,	// [17] opt$else = else
+			new Action() {	// [18] stmt = IF LPAR expr.ife RPAR stmt.ifblock opt$lst$elseif.elseiflist opt$else.elseblock
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_ife = _symbols[offset + 3];
 					final util.Node ife = (util.Node) _symbol_ife.value;
@@ -207,7 +216,7 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.If(ife,ifblock,elseiflist,elseblock);
 				}
 			},
-			new Action() {	// [18] stmt = FOR LPAR ID.id IN expr.e RPAR stmt.block
+			new Action() {	// [19] stmt = FOR LPAR ID.id IN expr.e RPAR stmt.block
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 3];
 					final String id = (String) _symbol_id.value;
@@ -218,7 +227,7 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.For(id,e,block);
 				}
 			},
-			new Action() {	// [19] stmt = WHILE LPAR expr.e RPAR stmt.block
+			new Action() {	// [20] stmt = WHILE LPAR expr.e RPAR stmt.block
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final util.Node e = (util.Node) _symbol_e.value;
@@ -227,14 +236,14 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.While(e,block);
 				}
 			},
-			new Action() {	// [20] stmt = PRINT printlist.lst SEMI
+			new Action() {	// [21] stmt = PRINT printlist.lst SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 2];
 					final ArrayList<Object> lst = (ArrayList<Object>) _symbol_lst.value;
 					 return new flowcontrol.Print(lst);
 				}
 			},
-			new Action() {	// [21] stmt = VAR ID.id ASN expr.e SEMI
+			new Action() {	// [22] stmt = VAR ID.id ASN expr.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 2];
 					final String id = (String) _symbol_id.value;
@@ -243,7 +252,7 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.VarDecl(id,e);
 				}
 			},
-			new Action() {	// [22] stmt = CONSTVAR ID.id ASN expr.e SEMI
+			new Action() {	// [23] stmt = CONSTVAR ID.id ASN expr.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 2];
 					final String id = (String) _symbol_id.value;
@@ -252,7 +261,7 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.ConstVarDecl(id,e);
 				}
 			},
-			new Action() {	// [23] stmt = ID.id ASN expr.e SEMI
+			new Action() {	// [24] stmt = ID.id ASN expr.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
 					final String id = (String) _symbol_id.value;
@@ -261,21 +270,21 @@ public class BonesParser extends Parser {
 					 return new flowcontrol.VarAssign(id,e);
 				}
 			},
-			new Action() {	// [24] printlist = STRING.str
+			new Action() {	// [25] printlist = STRING.str
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_str = _symbols[offset + 1];
 					final String str = (String) _symbol_str.value;
 					 ArrayList<Object> lst = new ArrayList<Object>(); lst.add(str); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [25] printlist = expr.e
+			new Action() {	// [26] printlist = expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final util.Node e = (util.Node) _symbol_e.value;
 					 ArrayList<Object> lst = new ArrayList<Object>(); lst.add(e); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [26] printlist = printlist.lst COMMA STRING.str
+			new Action() {	// [27] printlist = printlist.lst COMMA STRING.str
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 1];
 					final ArrayList<Object> lst = (ArrayList<Object>) _symbol_lst.value;
@@ -284,7 +293,7 @@ public class BonesParser extends Parser {
 					 lst.add(str); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [27] printlist = printlist.lst COMMA expr.e
+			new Action() {	// [28] printlist = printlist.lst COMMA expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 1];
 					final ArrayList<Object> lst = (ArrayList<Object>) _symbol_lst.value;
@@ -293,14 +302,14 @@ public class BonesParser extends Parser {
 					 lst.add(e); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [28] else = ELSE stmt.elseblock
+			new Action() {	// [29] else = ELSE stmt.elseblock
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_elseblock = _symbols[offset + 2];
 					final util.Node elseblock = (util.Node) _symbol_elseblock.value;
 					 return new flowcontrol.Else(elseblock);
 				}
 			},
-			new Action() {	// [29] rollmodlist = rollmodlist.lst COMMA rollmod.r
+			new Action() {	// [30] rollmodlist = rollmodlist.lst COMMA rollmod.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 1];
 					final ArrayList<dice.Rollmod> lst = (ArrayList<dice.Rollmod>) _symbol_lst.value;
@@ -309,37 +318,37 @@ public class BonesParser extends Parser {
 					 lst.add(r); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [30] rollmodlist = rollmod.r
+			new Action() {	// [31] rollmodlist = rollmod.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_r = _symbols[offset + 1];
 					final dice.Rollmod r = (dice.Rollmod) _symbol_r.value;
 					 ArrayList<dice.Rollmod> lst = new ArrayList<dice.Rollmod>(); lst.add(r); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [31] rollmod = EXPLODE expr.e
+			new Action() {	// [32] rollmod = EXPLODE expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final util.Node e = (util.Node) _symbol_e.value;
 					 return new dice.Rollmod_Explode(e);
 				}
 			},
-			new Action() {	// [32] rollmod = DESPLODE expr.e
+			new Action() {	// [33] rollmod = DESPLODE expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final util.Node e = (util.Node) _symbol_e.value;
 					 return new dice.Rollmod_Desplode(e);
 				}
 			},
-			new Action() {	// [33] rollmod = ROLLAGAIN expr.e
+			new Action() {	// [34] rollmod = ROLLAGAIN expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final util.Node e = (util.Node) _symbol_e.value;
 					 return new dice.Rollmod_Rollagain(e);
 				}
 			},
-			Action.NONE,  	// [34] opt$paramlist = 
-			Action.RETURN,	// [35] opt$paramlist = paramlist
-			new Action() {	// [36] funcdecl = FUNC ID.id LPAR opt$paramlist.lst RPAR LCUR opt$lst$stmt.block RETURN expr.ret SEMI RCUR
+			Action.NONE,  	// [35] opt$paramlist = 
+			Action.RETURN,	// [36] opt$paramlist = paramlist
+			new Action() {	// [37] funcdecl = FUNC ID.id LPAR opt$paramlist.lst RPAR LCUR opt$lst$stmt.block RETURN expr.ret SEMI RCUR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 2];
 					final String id = (String) _symbol_id.value;
@@ -353,9 +362,21 @@ public class BonesParser extends Parser {
 					 return new functions.FuncDecl(id,lst,block,ret);
 				}
 			},
-			Action.NONE,  	// [37] opt$exprlist = 
-			Action.RETURN,	// [38] opt$exprlist = exprlist
-			new Action() {	// [39] callexpr = ID.id LPAR opt$exprlist.list RPAR
+			new Action() {	// [38] funcdecl = FUNC ID.id LPAR opt$paramlist.lst RPAR LCUR opt$lst$stmt.block RCUR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_id = _symbols[offset + 2];
+					final String id = (String) _symbol_id.value;
+					final Symbol _symbol_lst = _symbols[offset + 4];
+					final ArrayList<String> lst = (ArrayList<String>) _symbol_lst.value;
+					final Symbol _symbol_block = _symbols[offset + 7];
+					final ArrayList _list_block = (ArrayList) _symbol_block.value;
+					final util.Node[] block = _list_block == null ? new util.Node[0] : (util.Node[]) _list_block.toArray(new util.Node[_list_block.size()]);
+					 return new functions.FuncDecl(id,lst,block,null);
+				}
+			},
+			Action.NONE,  	// [39] opt$exprlist = 
+			Action.RETURN,	// [40] opt$exprlist = exprlist
+			new Action() {	// [41] callexpr = ID.id LPAR opt$exprlist.list RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
 					final String id = (String) _symbol_id.value;
@@ -364,7 +385,7 @@ public class BonesParser extends Parser {
 					 return new functions.CallFunc(id,list);
 				}
 			},
-			new Action() {	// [40] callexpr = F_GT LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [42] callexpr = F_GT LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -373,7 +394,7 @@ public class BonesParser extends Parser {
 					 return new functions.Gt(a,b);
 				}
 			},
-			new Action() {	// [41] callexpr = F_GE LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [43] callexpr = F_GE LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -382,7 +403,7 @@ public class BonesParser extends Parser {
 					 return new functions.Ge(a,b);
 				}
 			},
-			new Action() {	// [42] callexpr = F_LT LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [44] callexpr = F_LT LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -391,7 +412,7 @@ public class BonesParser extends Parser {
 					 return new functions.Lt(a,b);
 				}
 			},
-			new Action() {	// [43] callexpr = F_LE LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [45] callexpr = F_LE LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -400,7 +421,7 @@ public class BonesParser extends Parser {
 					 return new functions.Le(a,b);
 				}
 			},
-			new Action() {	// [44] callexpr = F_EQ LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [46] callexpr = F_EQ LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -409,7 +430,7 @@ public class BonesParser extends Parser {
 					 return new functions.Eq(a,b);
 				}
 			},
-			new Action() {	// [45] callexpr = F_NEQ LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [47] callexpr = F_NEQ LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -418,14 +439,14 @@ public class BonesParser extends Parser {
 					 return new functions.Neq(a,b);
 				}
 			},
-			new Action() {	// [46] callexpr = F_HIGHEST LPAR expr.a RPAR
+			new Action() {	// [48] callexpr = F_HIGHEST LPAR expr.a RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new functions.Highest(a,null);
 				}
 			},
-			new Action() {	// [47] callexpr = F_HIGHEST LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [49] callexpr = F_HIGHEST LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -434,14 +455,14 @@ public class BonesParser extends Parser {
 					 return new functions.Highest(a,b);
 				}
 			},
-			new Action() {	// [48] callexpr = F_LOWEST LPAR expr.a RPAR
+			new Action() {	// [50] callexpr = F_LOWEST LPAR expr.a RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new functions.Lowest(a,null);
 				}
 			},
-			new Action() {	// [49] callexpr = F_LOWEST LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [51] callexpr = F_LOWEST LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -450,14 +471,14 @@ public class BonesParser extends Parser {
 					 return new functions.Lowest(a,b);
 				}
 			},
-			new Action() {	// [50] callexpr = F_PICK LPAR expr.a RPAR
+			new Action() {	// [52] callexpr = F_PICK LPAR expr.a RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new functions.Pick(a,null);
 				}
 			},
-			new Action() {	// [51] callexpr = F_PICK LPAR expr.a COMMA expr.b RPAR
+			new Action() {	// [53] callexpr = F_PICK LPAR expr.a COMMA expr.b RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -466,23 +487,30 @@ public class BonesParser extends Parser {
 					 return new functions.Pick(a,b);
 				}
 			},
-			Action.NONE,  	// [52] opt$STRING = 
-			Action.RETURN,	// [53] opt$STRING = STRING
-			new Action() {	// [54] callexpr = F_INPUT LPAR opt$STRING.str RPAR
+			Action.NONE,  	// [54] opt$STRING = 
+			Action.RETURN,	// [55] opt$STRING = STRING
+			new Action() {	// [56] callexpr = F_INPUT LPAR opt$STRING.str RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_str = _symbols[offset + 3];
 					final String str = (String) _symbol_str.value;
 					 return new functions.Input(str);
 				}
 			},
-			new Action() {	// [55] callexpr = F_SIZEOF LPAR expr.a RPAR
+			new Action() {	// [57] callexpr = F_SIZEOF LPAR expr.a RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 3];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new functions.Sizeof(a);
 				}
 			},
-			new Action() {	// [56] paramlist = paramlist.lst COMMA ID.id
+			new Action() {	// [58] callexpr = F_SUM LPAR expr.a RPAR
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 3];
+					final util.Node a = (util.Node) _symbol_a.value;
+					 return new functions.Sum(a);
+				}
+			},
+			new Action() {	// [59] paramlist = paramlist.lst COMMA ID.id
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 1];
 					final ArrayList<String> lst = (ArrayList<String>) _symbol_lst.value;
@@ -491,14 +519,14 @@ public class BonesParser extends Parser {
 					 lst.add(id); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [57] paramlist = ID.id
+			new Action() {	// [60] paramlist = ID.id
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
 					final String id = (String) _symbol_id.value;
 					 ArrayList<String> lst = new ArrayList<String>(); lst.add(id); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [58] exprlist = exprlist.lst COMMA expr.e
+			new Action() {	// [61] exprlist = exprlist.lst COMMA expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 1];
 					final ArrayList<util.Node> lst = (ArrayList<util.Node>) _symbol_lst.value;
@@ -507,72 +535,72 @@ public class BonesParser extends Parser {
 					 lst.add(e); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [59] exprlist = expr.e
+			new Action() {	// [62] exprlist = expr.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final util.Node e = (util.Node) _symbol_e.value;
 					 ArrayList<util.Node> lst = new ArrayList<util.Node>(); lst.add(e); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [60] dietype = D4
+			new Action() {	// [63] dietype = D4
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d4);
 				}
 			},
-			new Action() {	// [61] dietype = D6
+			new Action() {	// [64] dietype = D6
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d6);
 				}
 			},
-			new Action() {	// [62] dietype = D8
+			new Action() {	// [65] dietype = D8
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d8);
 				}
 			},
-			new Action() {	// [63] dietype = D10
+			new Action() {	// [66] dietype = D10
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d10);
 				}
 			},
-			new Action() {	// [64] dietype = D12
+			new Action() {	// [67] dietype = D12
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d12);
 				}
 			},
-			new Action() {	// [65] dietype = D20
+			new Action() {	// [68] dietype = D20
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.Dietypes(dice.Dietypes.Die.d20);
 				}
 			},
-			new Action() {	// [66] expr = ID.id
+			new Action() {	// [69] expr = ID.id
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_id = _symbols[offset + 1];
 					final String id = (String) _symbol_id.value;
 					 return new expr.Variable(id);
 				}
 			},
-			new Action() {	// [67] expr = INTLIT.i
+			new Action() {	// [70] expr = INTLIT.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_i = _symbols[offset + 1];
 					final String i = (String) _symbol_i.value;
 					 return new expr.IntLit(i);
 				}
 			},
-			new Action() {	// [68] expr = dietype.die
+			new Action() {	// [71] expr = dietype.die
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_die = _symbols[offset + 1];
 					final util.Node die = (util.Node) _symbol_die.value;
 					 return die;
 				}
 			},
-			new Action() {	// [69] expr = callexpr.calle
+			new Action() {	// [72] expr = callexpr.calle
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_calle = _symbols[offset + 1];
 					final util.Node calle = (util.Node) _symbol_calle.value;
 					 return calle;
 				}
 			},
-			new Action() {	// [70] expr = expr.a UNION expr.b
+			new Action() {	// [73] expr = expr.a UNION expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -581,7 +609,7 @@ public class BonesParser extends Parser {
 					 return new expr.Union(a,b);
 				}
 			},
-			new Action() {	// [71] expr = expr.a COMPLEMENT expr.b
+			new Action() {	// [74] expr = expr.a COMPLEMENT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -590,7 +618,7 @@ public class BonesParser extends Parser {
 					 return new expr.Complement(a,b);
 				}
 			},
-			new Action() {	// [72] expr = expr.a INTERSECT expr.b
+			new Action() {	// [75] expr = expr.a INTERSECT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -599,7 +627,7 @@ public class BonesParser extends Parser {
 					 return new expr.Intersect(a,b);
 				}
 			},
-			new Action() {	// [73] expr = expr.a PLUS expr.b
+			new Action() {	// [76] expr = expr.a PLUS expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -608,7 +636,7 @@ public class BonesParser extends Parser {
 					 return new expr.Plus(a,b);
 				}
 			},
-			new Action() {	// [74] expr = expr.a MINUS expr.b
+			new Action() {	// [77] expr = expr.a MINUS expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -617,7 +645,7 @@ public class BonesParser extends Parser {
 					 return new expr.Minus(a,b);
 				}
 			},
-			new Action() {	// [75] expr = expr.a MULT expr.b
+			new Action() {	// [78] expr = expr.a MULT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -626,7 +654,7 @@ public class BonesParser extends Parser {
 					 return new expr.Mult(a,b);
 				}
 			},
-			new Action() {	// [76] expr = expr.a DIV expr.b
+			new Action() {	// [79] expr = expr.a DIV expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -635,7 +663,7 @@ public class BonesParser extends Parser {
 					 return new expr.Div(a,b);
 				}
 			},
-			new Action() {	// [77] expr = expr.a MOD expr.b
+			new Action() {	// [80] expr = expr.a MOD expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -644,14 +672,14 @@ public class BonesParser extends Parser {
 					 return new expr.Mod(a,b);
 				}
 			},
-			new Action() {	// [78] expr = LPAR expr.a RPAR
+			new Action() {	// [81] expr = LPAR expr.a RPAR
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 2];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return a;
 				}
 			},
-			new Action() {	// [79] expr = expr.a GT expr.b
+			new Action() {	// [82] expr = expr.a GT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -660,7 +688,7 @@ public class BonesParser extends Parser {
 					 return new expr.Gt(a,b);
 				}
 			},
-			new Action() {	// [80] expr = expr.a EQGT expr.b
+			new Action() {	// [83] expr = expr.a EQGT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -669,7 +697,7 @@ public class BonesParser extends Parser {
 					 return new expr.Ge(a,b);
 				}
 			},
-			new Action() {	// [81] expr = expr.a LT expr.b
+			new Action() {	// [84] expr = expr.a LT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -678,7 +706,7 @@ public class BonesParser extends Parser {
 					 return new expr.Lt(a,b);
 				}
 			},
-			new Action() {	// [82] expr = expr.a EQLT expr.b
+			new Action() {	// [85] expr = expr.a EQLT expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -687,7 +715,7 @@ public class BonesParser extends Parser {
 					 return new expr.Le(a,b);
 				}
 			},
-			new Action() {	// [83] expr = expr.a EQ expr.b
+			new Action() {	// [86] expr = expr.a EQ expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -696,7 +724,7 @@ public class BonesParser extends Parser {
 					 return new expr.Eq(a,b);
 				}
 			},
-			new Action() {	// [84] expr = expr.a NEQ expr.b
+			new Action() {	// [87] expr = expr.a NEQ expr.b
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final util.Node a = (util.Node) _symbol_a.value;
@@ -705,21 +733,21 @@ public class BonesParser extends Parser {
 					 return new expr.Neq(a,b);
 				}
 			},
-			new Action() {	// [85] expr = BANG expr.a
+			new Action() {	// [88] expr = BANG expr.a
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 2];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new expr.Bang(a);
 				}
 			},
-			new Action() {	// [86] expr = MINUS expr.a
+			new Action() {	// [89] expr = MINUS expr.a
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 2];
 					final util.Node a = (util.Node) _symbol_a.value;
 					 return new expr.Negative(a);
 				}
 			},
-			new Action() {	// [87] expr = LBRA expr.from TO expr.to RBRA
+			new Action() {	// [90] expr = LBRA expr.from TO expr.to RBRA
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_from = _symbols[offset + 2];
 					final util.Node from = (util.Node) _symbol_from.value;
@@ -728,7 +756,7 @@ public class BonesParser extends Parser {
 					 return new dice.Range(from,to);
 				}
 			},
-			new Action() {	// [88] expr = LBRA expr.numdice COLO expr.dietype RBRA
+			new Action() {	// [91] expr = LBRA expr.numdice COLO expr.dietype RBRA
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_numdice = _symbols[offset + 2];
 					final util.Node numdice = (util.Node) _symbol_numdice.value;
@@ -737,7 +765,7 @@ public class BonesParser extends Parser {
 					 return new dice.Roll(numdice,dietype, null);
 				}
 			},
-			new Action() {	// [89] expr = LBRA expr.numdice COLO expr.dietype COLO rollmodlist.lst RBRA
+			new Action() {	// [92] expr = LBRA expr.numdice COLO expr.dietype COLO rollmodlist.lst RBRA
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_numdice = _symbols[offset + 2];
 					final util.Node numdice = (util.Node) _symbol_numdice.value;
@@ -748,12 +776,12 @@ public class BonesParser extends Parser {
 					 return new dice.Roll(numdice,dietype,lst);
 				}
 			},
-			new Action() {	// [90] expr = LBRA RBRA
+			new Action() {	// [93] expr = LBRA RBRA
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					 return new dice.EmptyPool();
 				}
 			},
-			new Action() {	// [91] expr = LBRA exprlist.lst RBRA
+			new Action() {	// [94] expr = LBRA exprlist.lst RBRA
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_lst = _symbols[offset + 2];
 					final ArrayList<util.Node> lst = (ArrayList<util.Node>) _symbol_lst.value;

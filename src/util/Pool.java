@@ -35,7 +35,7 @@ public class Pool implements Collection<Integer> {
 	
 	
 	public int asInt() throws NotAnIntegerException{
-		if (size() == 1) return ((Integer[])toArray())[0];
+		if (size() == 1) return iterator().next();
 		else throw new NotAnIntegerException(this);
 	}
 	
@@ -45,7 +45,7 @@ public class Pool implements Collection<Integer> {
 	
 	public String toString(){
 		if(size() == 0) return "[ ]";
-		else if (size() == 1) return ""+((Integer[])toArray())[0];
+		else if (size() == 1) return ""+iterator().next();
 		else{
 			String str = "[ ";
 			for (Integer i:this)
@@ -118,6 +118,11 @@ public class Pool implements Collection<Integer> {
 	@Override
 	public <T> T[] toArray(T[] arg0) {
 		return _vals.toArray(arg0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Pool unique(){
+		return new Pool(_vals.elementSet());
 	}
 	public class NotAnIntegerException extends Exception{
 		private static final long serialVersionUID = 6160750656403258024L;

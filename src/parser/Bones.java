@@ -1,17 +1,17 @@
 package parser;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
-
-import beaver.Parser.Exception;
 
 import util.Node;
 import util.State;
+import beaver.Parser.Exception;
 
 public class Bones {
-	public static void main(String[] args){
+	public static void main(String[] args) throws FileNotFoundException{
 		State state = new State();
-		StringReader script = new StringReader(args[0]);
+		FileReader script = new FileReader(args[0]);
 		BonesScanner scanner = new BonesScanner(script);
 		BonesParser parser = new BonesParser();
 		try {

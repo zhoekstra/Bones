@@ -1,8 +1,7 @@
 %class "BonesParser";
 %header {: package parser; :};
-%import "util.*";
 
-%terminals            F_GT, F_LT, F_GE, F_LE, F_EQ, F_NEQ, F_HIGHEST, F_LOWEST, F_PICK, F_INPUT, F_SIZEOF;
+%terminals            F_GT, F_LT, F_GE, F_LE, F_EQ, F_NEQ, F_HIGHEST, F_LOWEST, F_PICK, F_INPUT, F_SUM, F_SIZEOF;
 %terminals            LPAR, RPAR, LCUR, RCUR, LBRA, RBRA, COMMA, SEMI, COLO;
 %terminals            IF, ELSEIF, ELSE, WHILE, IN, FOR, PRINT, VAR, CONSTVAR, FUNC, RETURN;
 %terminals            ASN, EQ, NEQ, GT, LT, EQGT, EQLT, TO, BANG;
@@ -28,8 +27,8 @@
 %left   LBRA, RBRA;
 
 %typeof ID,STRING,INTLIT = "String";
-%typeof script,elseif,stmt,else,funcdecl,callexpr,dietype,expr = "Node";
-%typeof exprlist = "ArrayList<Node>";
+%typeof script,elseif,stmt,else,funcdecl,callexpr,dietype,expr = "util.Node";
+%typeof exprlist = "ArrayList<util.Node>";
 %typeof paramlist = "ArrayList<String>";
 %typeof printlist = "ArrayList<Object>";
 %typeof rollmodlist = "ArrayList<dice.Rollmod>";
@@ -55,7 +54,9 @@ elseif =
 ;
 
 stmt = 
-    LCUR stmt.block* RCUR
+    expr.e SEMI
+    {: return e; :}
+  | LCUR stmt.block* RCUR
     {: return new flowcontrol.Block(block); :}
   | IF LPAR expr.ife RPAR stmt.ifblock elseif.elseiflist* else.elseblock?
     {: return new flowcontrol.If(ife,ifblock,elseiflist,elseblock); :}
@@ -108,6 +109,8 @@ rollmod =
 funcdecl = 
     FUNC ID.id LPAR paramlist.lst? RPAR LCUR stmt.block* RETURN expr.ret SEMI RCUR
     {: return new functions.FuncDecl(id,lst,block,ret); :}
+  | FUNC ID.id LPAR paramlist.lst? RPAR LCUR stmt.block* RCUR
+    {: return new functions.FuncDecl(id,lst,block,null); :} 
 ;
 
 callexpr = 
@@ -140,7 +143,9 @@ callexpr =
   | F_INPUT LPAR STRING.str? RPAR
     {: return new functions.Input(str); :}
   | F_SIZEOF LPAR expr.a RPAR
-    {: return new functions.Sizeof(a); :}     
+    {: return new functions.Sizeof(a); :}
+  | F_SUM LPAR expr.a RPAR
+    {: return new functions.Sum(a); :}
 ;
 
 paramlist = 
@@ -154,7 +159,7 @@ exprlist =
     exprlist.lst COMMA expr.e
     {: lst.add(e); return new Symbol(lst); :}
   | expr.e
-    {: ArrayList<Node> lst = new ArrayList<Node>(); lst.add(e); return new Symbol(lst); :}
+    {: ArrayList<util.Node> lst = new ArrayList<util.Node>(); lst.add(e); return new Symbol(lst); :}
 ;
 
 dietype =

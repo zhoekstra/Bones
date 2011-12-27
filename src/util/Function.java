@@ -18,6 +18,8 @@ public class Function extends Node {
 	public Pool visit(State state) throws Exception{
 		for(Node n : stmts)
 			n.visit(state);
-		return returnval.visit(state);
+		if(returnval !=null)
+			return returnval.visit(state);
+		else return Pool.False;
 	}
 }
